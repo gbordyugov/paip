@@ -95,3 +95,39 @@ p
               (Miss Scarlet)))
 
 (first-name (first names))
+
+;;
+;; Chapter 1.6
+;;
+
+(mapcar #'last-name names)
+
+(mapcar #'- '(1 2 3 4))
+
+(mapcar #'+ '(1 2 3 4) '(10 20 30 40))
+
+(mapcar #'first-name names)
+
+(defparameter *titles*
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
+  "A list of titles that can appear at the start of a name.")
+
+(defun first-name (name)
+  "Select the first name from a name represnted as a list."
+  (if (member (first name) *titles*)
+      (first-name (rest name))
+      (first name)))
+
+(mapcar #'first-name names)
+
+(first-name '(Madam Major General Paula Jones))
+
+(trace first-name)
+
+(first-name '(Jonn Q Public))
+
+(first-name '(Madam Major General Paula Jones))
+
+(untrace first-name)
+
+(first-name '(Mr Blue Jeans))
