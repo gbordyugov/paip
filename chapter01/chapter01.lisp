@@ -55,3 +55,43 @@ p
 (last p)
 
 (first (last p))
+
+;;
+;; Chapter 1.5
+;;
+
+(defun last-name (name)
+  "Select the last name from a name represented as a list."
+  (first (last name)))
+
+(last-name p)
+
+(last-name '(Rear Admiral Grace Murray Hopper))
+
+(last-name '(Rex Morgan MD))
+
+(last-name '(Spot))
+
+(last-name '(Aristotle))
+
+(defun first-name (name)
+  "Select the first name from a name represented as a list."
+  (first name))
+
+p
+
+(first-name p)
+
+(first-name '(Wilma Flinstone))
+
+(setf names '((John Q Public)
+              (Malcolm X)
+              (Admiral Grace Murray Hopper)
+              (Spot)
+              (Aristotle)
+              (A A Milne)
+              (Z Z Top)
+              (Sir Larry Olivier)
+              (Miss Scarlet)))
+
+(first-name (first names))
