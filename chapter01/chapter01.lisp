@@ -21,3 +21,37 @@ p
 (+ x x)
 
 (+ x (length p))
+
+(first p)
+
+(rest p)
+
+(second p)
+
+(third p)
+
+(fourth p)
+
+(length p)
+
+(setf x '((1st element) 2 (element 3) ((4)) 5))
+
+(length x)
+
+(first x)
+
+(cons 'mr p)
+
+(cons (first p) (rest p))
+
+(setf town (list 'Anytown 'USA))
+
+(list p 'of town 'may 'have 'already 'won!)
+
+(append p '(of) town '(may have already won!))
+
+p
+
+(last p)
+
+(first (last p))
