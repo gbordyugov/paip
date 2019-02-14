@@ -12,7 +12,12 @@
 
 (length (append '(pat kim) (list '(john q public) 'sandy)))
 
-(defun last-name (name)
-  "Select the lasat name from a name represented as a list."
-  (first (last name)))
+(setf p '(john q public))
 
+p
+
+(setf x 10)
+
+(+ x x)
+
+(+ x (length p))
