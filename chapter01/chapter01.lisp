@@ -200,3 +200,20 @@ p
   (first-name (reverse name)))
 
 (last-name '(Rex Morgan MD))
+
+;;
+;; Exercise 1.2
+;;
+
+(defun power (e n)
+  "Raise e to integer power n"
+  (cond
+    ((= n 0) 1)
+    ((= n 1) e)
+    ((evenp n) (let ((y (power e (/ n 2)))) (* y y)))
+    (t (* (power e (- n 1)) e))))
+
+(power 2 0)
+(power 2 1)
+(power 2 3)
+(power 3.24 15)
