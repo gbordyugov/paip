@@ -217,3 +217,18 @@ p
 (power 2 1)
 (power 2 3)
 (power 3.24 15)
+
+;;
+;; Exercise 1.3
+;;
+
+(defun count-atoms (expr)
+  "Count atoms in expression expr."
+  (if (atom expr)
+      1
+      (let ((counters (mapcar #'count-atoms expr)))
+        (apply #'+ counters))))
+
+(count-atoms 3)
+(count-atoms '(3 4 5))
+(count-atoms '(3 (4 5 (5) ((6)))))
