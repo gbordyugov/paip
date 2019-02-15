@@ -145,7 +145,7 @@ p
 (apply #'append '((1 2 3) (a b c)))
 
 (defun self-and-double (x)
-  "Returns a tuple consisting of x and its double."
+  "Return a tuple consisting of x and its double."
   (list x (+ x x)))
 
 (self-and-double 3)
@@ -155,3 +155,15 @@ p
 (mapcar #'self-and-double '(1 10 300))
 
 (mappend #'self-and-double '(1 10 300))
+
+(defun numbers-and-negations (input)
+  "Given a list, return only the numbers and their negations."
+  (mappend #'number-and-negation input))
+
+(defun number-and-negation (x)
+  "If x is a number, return a list of x and -x."
+  (if (numberp x)
+      (list x (- x))
+      nil))
+
+(numbers-and-negations '(testing 1 2 3 test))
