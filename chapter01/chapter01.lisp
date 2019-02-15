@@ -250,3 +250,13 @@ p
 (count-anywhere 'a 'a)
 (count-anywhere '(g b) '(g b))
 (count-anywhere '(g b) '((g b) d (g b)))
+
+
+;;
+;; Exercise 1.5
+;;
+
+(defun dot-product (a b)
+  (apply #'+ (mapcar #'* a b)))
+
+(dot-product '(10 20) '(3 4))
