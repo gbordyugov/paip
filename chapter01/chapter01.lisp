@@ -232,3 +232,21 @@ p
 (count-atoms 3)
 (count-atoms '(3 4 5))
 (count-atoms '(3 (4 5 (5) ((6)))))
+
+;;
+;; Exercise 1.4
+;;
+
+(defun count-anywhere (needle stack)
+  "Count the number of occurences of needle in stack."
+  (cond
+    ((equal needle stack) 1)
+    ((atom stack) 0)
+    (t (let ((counters (mapcar #'(lambda (x) (count-anywhere needle x))
+                               stack)))
+         (apply #'+ counters)))))
+
+(count-anywhere 'a 'b)
+(count-anywhere 'a 'a)
+(count-anywhere '(g b) '(g b))
+(count-anywhere '(g b) '((g b) d (g b)))
