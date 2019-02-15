@@ -109,7 +109,7 @@ p
 (mapcar #'first-name names)
 
 (defparameter *titles*
-  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General)
+  '(Mr Mrs Miss Ms Sir Madam Dr Admiral Major General MD)
   "A list of titles that can appear at the start of a name.")
 
 (defun first-name (name)
@@ -191,3 +191,12 @@ p
 "a string"
 (length "a string")
 (length "")
+
+;;
+;; Exercise 1.1
+;;
+(defun last-name (name)
+  "Select the last name from a name represnted as a list."
+  (first-name (reverse name)))
+
+(last-name '(Rex Morgan MD))
