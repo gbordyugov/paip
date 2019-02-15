@@ -174,3 +174,12 @@ p
       nil
       (append (funcall fn (first the-list))
               (mappend fn (rest  the-list)))))
+
+((lambda (x) (+ x 2)) 4)
+
+(funcall #'(lambda (x) (+ x 2)) 4)
+
+(mapcar #'(lambda (x) (+ x x)) '(1 2 3 4 5))
+
+(mappend #'(lambda (l) (list l (reverse l)))
+         '((1 2 3) (a b c)))
