@@ -167,3 +167,10 @@ p
       nil))
 
 (numbers-and-negations '(testing 1 2 3 test))
+
+(defun mappend (fn the-list)
+  "Apply fn to each element of list and append the results."
+  (if (null the-list)
+      nil
+      (append (funcall fn (first the-list))
+              (mappend fn (rest  the-list)))))
