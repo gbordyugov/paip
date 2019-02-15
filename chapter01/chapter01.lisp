@@ -183,3 +183,11 @@ p
 
 (mappend #'(lambda (l) (list l (reverse l)))
          '((1 2 3) (a b c)))
+
+;;
+;; Chapter 1.8 Other Data Types
+;;
+
+"a string"
+(length "a string")
+(length "")
