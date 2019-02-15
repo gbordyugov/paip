@@ -131,3 +131,27 @@ p
 (untrace first-name)
 
 (first-name '(Mr Blue Jeans))
+
+;;
+;; Chapter 1.7 Higher-Order Functions
+;;
+
+(defun mappend (fn the-list)
+  "Apply fn to each element of list and append the results."
+  (apply #'append (mapcar fn the-list)))
+
+(apply #'+ '(1 2 3 4))
+
+(apply #'append '((1 2 3) (a b c)))
+
+(defun self-and-double (x)
+  "Returns a tuple consisting of x and its double."
+  (list x (+ x x)))
+
+(self-and-double 3)
+
+(apply #'self-and-double '(3))
+
+(mapcar #'self-and-double '(1 10 300))
+
+(mappend #'self-and-double '(1 10 300))
