@@ -102,3 +102,18 @@
 (generate 'sentence)
 (generate 'noun-phrase)
 (generate 'verb-phrase)
+
+
+;;
+;; Exercise 2.1
+;;
+
+(defun generate (phrase)
+  (cond ((listp phrase)
+         (mappend #'generate phrase))
+        (t (let ((r (rewrites phrase)))
+             (if r
+                 (generate (random-elt r))
+                 (list phrase))))))
+
+(generate 'sentence)
