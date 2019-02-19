@@ -203,3 +203,19 @@
 (generate-all 'noun)
 (generate-all 'noun-phrase)
 (length (generate-all 'sentence))
+
+;;
+;; Exercise 2.3
+;;
+
+(defparameter *sql-grammar*
+  '((select -> (select-expr+))
+    (select-expr+ -> (select-expr) (select-expr select-expr*))
+    (select-expr* -> () (select-expr select-expr*))
+    (select-expr  -> identifier)
+    (identifier   -> a b c)))
+
+(setf *grammar* *sql-grammar*)
+
+(generate 'select)
+(generate-all 'select)
