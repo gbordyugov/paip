@@ -121,3 +121,21 @@
 ;;
 ;; Exercise 2.2
 ;;
+
+(defun terminal-p (x)
+  (null (rewrites x)))
+
+(terminal-p 'sentence)
+(terminal-p 'verb)
+(terminal-p 'the)
+
+(defun generate (phrase)
+  (cond
+    ((listp phrase)
+     (mappend #'generate phrase))
+    ((not (terminal-p phrase))
+     (let ((random-pick (random-elt (rewrites phrase))))
+       (generate random-pick)))
+    (t (list phrase))))
+
+(generate 'sentence)
