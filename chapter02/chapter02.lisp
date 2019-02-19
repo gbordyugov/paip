@@ -92,11 +92,11 @@
   (apply #'append (mapcar fn the-list)))
 
 (defun generate (phrase)
-  (cond ((listp phrase)
-         (mappend #'generate phrase))
-        ((rewrites phrase)
-         (generate (random-elt (rewrites phrase))))
-        (t (list phrase))))
+  (cond
+    ;; if it's a list, it's a concatenated rule, for instance, (Article noun)
+    ((listp phrase)    (mappend #'generate phrase))
+    ((rewrites phrase) (generate (random-elt (rewrites phrase))))
+    (t                 (list phrase))))
 
 
 (generate 'sentence)
@@ -109,11 +109,15 @@
 ;;
 
 (defun generate (phrase)
-  (cond ((listp phrase)
-         (mappend #'generate phrase))
-        (t (let ((r (rewrites phrase)))
-             (if r
-                 (generate (random-elt r))
-                 (list phrase))))))
+  (cond
+    ((listp phrase) (mappend #'generate phrase))
+    (t              (let ((r (rewrites phrase)))
+                      (if r
+                          (generate (random-elt r))
+                          (list phrase))))))
 
 (generate 'sentence)
+
+;;
+;; Exercise 2.2
+;;
