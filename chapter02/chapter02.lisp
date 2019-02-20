@@ -209,13 +209,21 @@
 ;;
 
 (defparameter *sql-grammar*
-  '((select -> (select-expr+))
-    (select-expr+ -> (select-expr) (select-expr select-expr*))
-    (select-expr* -> () (select-expr select-expr*))
+  '((expr         -> ((select select-expr+) (from-expr)))
+    (select-expr+ -> (select-expr) (select-expr select-expr+))
     (select-expr  -> identifier)
-    (identifier   -> a b c)))
+    (identifier   -> a b c d e)
+    (from-expr    -> (from table+))
+    (table+       -> (table) (table join-expr table+))
+    (join-expr    -> (left join) (right join) (full join) (cross join))
+    (table        -> orders customers sales-reps countries)
+    ))
 
 (setf *grammar* *sql-grammar*)
 
-(generate 'select)
-(generate-all 'select)
+(generate 'expr)
+
+;;
+;; won't work because of the recursivity of the data structure
+;; (generate-all 'select)
+;;
