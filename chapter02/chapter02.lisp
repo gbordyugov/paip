@@ -227,3 +227,27 @@
 ;; won't work because of the recursivity of the data structure
 ;; (generate-all 'select)
 ;;
+
+;;
+;; Exercise 2.4
+;;
+
+(defun combine-all (xlist ylist)
+  "Return a list of lists formed by appending a y to an x.
+   E.g., (combine-all '((a) (b)) '((1) (2))) -> ((A 1) (B 1) (A 2) (B 2))."
+  (mappend #'(lambda (y)
+               (mapcar #'(lambda (x) (append x y)) xlist))
+           ylist))
+
+(combine-all '((a b) (c)) '((1) (2)))
+
+(defun cross-product (xlist ylist fn)
+  "A generalisation of combine-all in terms of abstracting away append."
+  (mappend #'(lambda (y)
+               (mapcar #'(lambda (x) (funcall fn x y)) xlist))
+           ylist))
+
+(defun combine-all-new (xlist ylist)
+  (cross-product xlist ylist #'append))
+
+(combine-all-new '((a b) (c)) '((1) (2)))
