@@ -132,3 +132,11 @@ b
       (+ b a)))
     (+ a 3)))
  (+ 3 3))
+
+;;
+;; Structs stuff
+;;
+
+(defstruct player
+  (score 0)
+  (wins 0))
