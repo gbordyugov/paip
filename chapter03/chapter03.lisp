@@ -204,3 +204,16 @@ b
   (if (null list)
       0
       (+ 1 (position-if #'true list :from-end t))))
+
+(mapcar #'- '(1 2 3))
+(mapcar #'+ '(1 2) '(10 20))
+(mapcar #'+ '(1 2) '(10 20) '(100 200))
+
+(remove 1 '(1 2 3 2 1 0 -1))
+(remove 1 '(1 2 3 2 1 0 -1) :key #'abs)
+(remove 1 '(1 2 3 2 1 0 -1) :test #'<)
+(remove 1 '(1 2 3 2 1 0 -1) :start 4)
+
+(remove-if #'oddp '(1 2 3 2 1 0 -1))
+(remove-if-not #'oddp '(1 2 3 2 1 0 -1))
+(find-if #'evenp '(1 2 3 2 1 0 -1))
