@@ -254,3 +254,44 @@ b
     (length13 the-list 0)))
 
 (length12 '(a b c d))
+
+;;
+;; Other Special Forms
+;;
+
+(progn (setf x 0) (setf x (+ x 1)) x)
+
+;;
+;; Macros
+;;
+
+(defmacro while (test &rest body)
+  "Repeat body while test is true."
+  (list* 'loop
+         (list 'unless test '(return nil))
+         body))
+
+(macroexpand-1 '(while (< i 10) (print (* i i)) (setf i (+ i 1))))
+
+(setf i 7)
+
+(while (< i 10)
+  (print (* i i))
+  (setf i (+ i 1)))
+
+;;
+;; Backquote notation
+;;
+
+(defmacro while (test &rest body)
+  "Repeat body while test is true."
+  `(loop (unless ,test (return nil))
+      ,@body))
+
+(macroexpand-1 '(while (< i 10) (print (* i i)) (setf i (+ i 1))))
+
+(setf test1 '(a test))
+`(this is ,test1)
+`(this is ,@test1)
+`(this is . ,test1)
+`(this is ,@test1 -- this is only ,@test1)
