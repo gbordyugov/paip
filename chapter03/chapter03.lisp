@@ -217,3 +217,40 @@ b
 (remove-if #'oddp '(1 2 3 2 1 0 -1))
 (remove-if-not #'oddp '(1 2 3 2 1 0 -1))
 (find-if #'evenp '(1 2 3 2 1 0 -1))
+
+;;
+;; Repetition through Recursion
+;;
+
+(defun length9 (list)
+  (if (null list)
+      0
+      (+ 1 (length9 (rest list)))))
+
+(length9 '(a b c))
+
+(defun length10 (list)
+  (length10-aux list 0))
+
+(defun length10-aux (sublist len-so-far)
+  (if (null sublist)
+      len-so-far
+      (length10-aux (rest sublist) (+ 1 len-so-far))))
+
+(length10 '(a b c d))
+
+(defun length11 (list &optional (len-so-far 0))
+  (if (null list)
+      len-so-far
+      (length11 (rest list) (+ 1 len-so-far))))
+
+(length11 '(a b c d e f))
+
+(defun length12 (the-list)
+  (labels ((length13 (list len-so-far)
+             (if (null list)
+                 len-so-far
+                 (length13 (rest list) (+ 1 len-so-far)))))
+    (length13 the-list 0)))
+
+(length12 '(a b c d))
