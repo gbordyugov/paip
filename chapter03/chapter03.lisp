@@ -93,5 +93,42 @@ b
 ;; this is the starred `let*` above
 ;;
 ((lambda (x)
-   ((lambda (y) (+ x y)) (* x x)))
-   6)
+   ((lambda (y)
+      (+ x y))
+    (* x x)))
+ 6)
+
+;;
+;; one more test
+;;
+(let* ((x 2)
+       (y (* 2 x))
+       (z (+ 3 y)))
+  (+ x y z))
+
+((lambda (x)
+   ((lambda (y)
+      ((lambda (z)
+         (+ x y z))
+       (+ 3 y)))
+    (* 2 x)))
+ 2)
+
+;;
+;; four nested lambdas test
+;;
+(let* ((a (+ 3 3))
+       (b (+ a 3))
+       (c (+ b a))
+       (d (* a b c)))
+  (+ a b c d))
+
+((lambda (a)
+   ((lambda (b)
+     ((lambda (c)
+       ((lambda (d)
+         (+ a b c d))
+        (* a b c)))
+      (+ b a)))
+    (+ a 3)))
+ (+ 3 3))
