@@ -193,3 +193,14 @@ b
        for element = (pop list)
        do (incf len)
        finally (return len)))
+
+(defun length7 (list)
+  (count-if #'true list))
+
+(defun true (x)
+  t)
+
+(defun length8 (list)
+  (if (null list)
+      0
+      (+ 1 (position-if #'true list :from-end t))))
