@@ -319,3 +319,7 @@ b
 (dotted-print 5)
 
 (dotted-print '(1 2 3 4))
+
+;;
+;; Exercise 3.4 skipped
+;;
