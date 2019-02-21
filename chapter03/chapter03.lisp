@@ -140,3 +140,12 @@ b
 (defstruct player
   (score 0)
   (wins 0))
+
+(defun determine-winner-1 (players)
+  "Increment the WINS for the player with highest score."
+  (incf (player-wins (first (sort players #'> :key #'player-score)))))
+
+(defun determine-winner-2 (players)
+  "Increment the WINS for the player with highest score."
+  (let ((temp (first (sort players #'> :key #'player-score))))
+    (setf (player-wins temp) (+ (player-wins temp) 1))))
