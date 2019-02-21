@@ -295,3 +295,9 @@ b
 `(this is ,@test1)
 `(this is . ,test1)
 `(this is ,@test1 -- this is only ,@test1)
+
+;;
+;; Exercise 3.2
+;;
+;; it's list*
+;;
