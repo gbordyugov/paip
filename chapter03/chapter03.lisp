@@ -174,3 +174,22 @@ b
   (do ((len 0 (+ len 1))
        (l list (rest l)))
       ((null l) len)))
+
+;;
+;; The `loop` macro
+;;
+
+(defun length4 (list)
+  (loop for element in list
+       count t))
+
+(defun length5 (list)
+  (loop for element in list
+     summing l))
+
+(defun length6 (list)
+  (loop with len = 0
+       until (null list)
+       for element = (pop list)
+       do (incf len)
+       finally (return len)))
