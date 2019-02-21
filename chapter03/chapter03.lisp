@@ -301,3 +301,21 @@ b
 ;;
 ;; it's list*
 ;;
+
+;;
+;; Exercise 3.3
+;;
+
+(defun dotted-print (exp)
+  (if (atom exp)
+      (princ exp)
+      (progn
+        (princ "(")
+        (princ (first exp))
+        (princ " . ")
+        (dotted-print (rest exp))
+        (princ ")"))))
+
+(dotted-print 5)
+
+(dotted-print '(1 2 3 4))
