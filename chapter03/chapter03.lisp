@@ -65,3 +65,17 @@ b
   (typecase x
     (number (abs x))
     (list (length x))))
+
+;;
+;; Special Forms for Dealing with Variables and Places
+;;
+
+(let ((x 40)
+      (y (+ 1 1)))
+  (+ x y))
+
+((lambda (x y) (+ x y)) 40 (+ 1 1))
+
+(let* ((x 6)
+       (y (* x x)))
+  (+ x y))
