@@ -79,3 +79,19 @@ b
 (let* ((x 6)
        (y (* x x)))
   (+ x y))
+
+;;
+;; Exercise 3.1
+;;
+
+;;
+;; this is the simple `let` above
+;;
+((lambda (x y) (+ x y)) 40 (+ 1 1))
+
+;;
+;; this is the starred `let*` above
+;;
+((lambda (x)
+   ((lambda (y) (+ x y)) (* x x)))
+   6)
