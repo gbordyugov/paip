@@ -149,3 +149,28 @@ b
   "Increment the WINS for the player with highest score."
   (let ((temp (first (sort players #'> :key #'player-score))))
     (setf (player-wins temp) (+ (player-wins temp) 1))))
+
+;;
+;; Functions and Special Forms for Repetition
+;;
+
+(defun length1 (list)
+  (let ((len 0))
+    (dolist (element list)
+      (incf len))
+    len))
+
+(defun length1.1 (list)
+  (let ((len 0))
+    (dolist (element list len)
+      (infc len))))
+
+(defun length2 (list)
+  (let ((len 0))
+    (mapc #'(lambda (element) (incf len)) list)
+    len))
+
+(defun length3 (list)
+  (do ((len 0 (+ len 1))
+       (l list (rest l)))
+      ((null l) len)))
