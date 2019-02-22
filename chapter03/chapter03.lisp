@@ -388,3 +388,15 @@ b
     (sublis translations words)))
 
 (english->french '(hello my friend - how are you today?))
+
+
+;;
+;; 3.9 Functions on Sets
+;;
+
+(setf r '(a b c d))
+(setf s '(c d e))
+(intersection r s)
+
+(bit-and #*11110 #*11001)
+(logand #b11110 #b11001)
