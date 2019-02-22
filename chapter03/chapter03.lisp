@@ -400,3 +400,15 @@ b
 
 (bit-and #*11110 #*11001)
 (logand #b11110 #b11001)
+
+;;
+;; 3.10 Destructive functions
+;;
+
+(setf x '(a b c))
+(setf y '(1 2 3))
+(append x y)
+
+(nconc x y)
+x
+y
