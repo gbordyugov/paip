@@ -323,3 +323,34 @@ b
 ;;
 ;; Exercise 3.4 skipped
 ;;
+
+;;
+;; 3.6 Functions for Maintaining Tables
+;;
+
+(setf state-table
+      '((AL. Alabama) (AK . Alaska) (AZ . Arizona) (AR . Arkansas)))
+
+(assoc 'AK state-table)
+(cdr (assoc 'AK state-table))
+(assoc 'TX state-table)
+
+(rassoc 'Arizona state-table)
+
+(setf table (make-hash-table))
+
+(setf (gethash 'AL table) 'Alabama)
+(setf (gethash 'AK table) 'Alaska)
+(setf (gethash 'AZ table) 'Arizona)
+(setf (gethash 'AR table) 'Arkansas)
+
+(gethash 'AK table)
+(gethash 'TX table)
+
+(setf (get 'AL 'state) 'Alabama)
+(setf (get 'AK 'state) 'Alaska)
+(setf (get 'AZ 'state) 'Arizona)
+(setf (get 'AR 'state) 'Arkansas)
+
+(get 'AK 'state)
+(get 'TX 'state)
