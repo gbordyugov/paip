@@ -4,8 +4,18 @@
 
 (defun ask (thing)
   (progn
-    (format t "is it ~A?~%" thing)
-    (eql 'yes (read))))
+    (format t "Is it ~A?" thing)
+    (case (read)
+      ((y yes) (prin1 'wow!))
+      ((n no ) (prin1 'nopes))
+      (t       (prin1 'whatever)))
+    'ok))
+
+(read)
+
+(ask 'thing)
+
+'bla
 
 (defun twenty-questions ()
   t)
