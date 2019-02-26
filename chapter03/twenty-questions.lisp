@@ -19,3 +19,10 @@
 
 (defun twenty-questions ()
   t)
+
+(defstruct question
+  name
+  (yes nil)
+  (no  nil))
+
+(make-question :name 'thing)
