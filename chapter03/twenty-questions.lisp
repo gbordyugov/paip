@@ -42,3 +42,21 @@
 
 (defun thing-no (thing)
   (nth 2 thing))
+
+(defun update-thing-with-answer (thing answer)
+  (case answer
+    ((y yes) (let ((name      (thing-name thing))
+                   (yes-child (thing-yes thing))
+                   ( no-child (thing-no thing))
+                   (next-answer    (question)))
+               (make-thing name
+                           (update-thing-with-answer next-answer)
+                           no-child)))
+    ((n no) (let ((name      (thing-name thing))
+                  (yes-child (thing-yes thing))
+                  ( no-child (thing-no thing))
+                  (next-answer    (question)))
+              (make-thing name
+                          yes-child
+                          (update-thing-with-answer next-answer))))
+    (it thing)))
