@@ -26,3 +26,19 @@
   (no  nil))
 
 (make-question :name 'thing)
+
+;;
+;; just playing around with the syntax of Common Lisp
+;;
+
+(defun make-thing (name &optional (yes nil) (no nil))
+  (list name yes no))
+
+(defun thing-name (thing)
+  (nth 0 thing))
+
+(defun thing-yes (thing)
+  (nth 1 thing))
+
+(defun thing-no (thing)
+  (nth 2 thing))
