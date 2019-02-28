@@ -20,33 +20,32 @@
 (defun thing-no (thing)
   (nth 2 thing))
 
+
 ;;
 ;; the main recursion
 ;;
 
-(defun recurse-yes (thing)
-  (let ((yes (thing-yes thing)))
-    (if yes
-        (recurse yes)
-        (give-up thing))))
-
-(defun recurse-no (thing)
-  (let ((no (thing-no thing)))
-    (if no
-        (recurse no)
-        (give-up thing))))
-
-(defun give-up (thing)
-  t)
-
-(defun bingo! (thing)
-  t)
-
 (defun recurse (thing)
-  (case (ask-about thing)
-    (yes (recurse-yes thing))
-    (no  (recurse-no  thing))
-    (it  (bingo!      thing))))
+  (flet ((recurse-yes (thing)
+           (let ((yes (thing-yes thing)))
+             (if yes
+                 (recurse yes)
+                 (give-up thing))))
+         (recurse-no (thing)
+           (let ((no (thing-no thing)))
+             (if no
+                 (recurse no)
+                 (give-up thing))))
+         (give-up (thing)
+           t)
+         (bingo! (thing)
+           (progn
+             (format "Bingo!")
+             t)))
+    (case (ask-about thing)
+      (yes (recurse-yes thing))
+      (no  (recurse-no  thing))
+      (it  (bingo!      thing)))))
 
 (defun ask-about (thing)
   (progn
@@ -58,3 +57,4 @@
       (t       (ask-about thing)))))
 
 ;; (ask-about (make-thing 'thing))
+(recurse (make-thing 'thing))
