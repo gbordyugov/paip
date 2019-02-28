@@ -25,10 +25,16 @@
 ;;
 
 (defun recurse-yes (thing)
-  t)
+  (let ((yes (thing-yes thing)))
+    (if yes
+        (recurse yes)
+        (give-up thing))))
 
 (defun recurse-no (thing)
-  t)
+  (let ((no (thing-no thing)))
+    (if no
+        (recurse no)
+        (give-up thing))))
 
 (defun give-up (thing)
   t)
@@ -36,7 +42,7 @@
 (defun bingo! (thing)
   t)
 
-(defun rec (thing)
+(defun recurse (thing)
   (case (ask-about thing)
     (yes (recurse-yes thing))
     (no  (recurse-no  thing))
