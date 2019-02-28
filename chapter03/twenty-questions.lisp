@@ -24,11 +24,23 @@
 ;; the main recursion
 ;;
 
+(defun recurse-yes (thing)
+  t)
+
+(defun recurse-no (thing)
+  t)
+
+(defun give-up (thing)
+  t)
+
+(defun bingo! (thing)
+  t)
+
 (defun rec (thing)
   (case (ask-about thing)
-    (yes t)
-    (no  t)
-    (it  t)))
+    (yes (recurse-yes thing))
+    (no  (recurse-no  thing))
+    (it  (bingo!      thing))))
 
 (defun ask-about (thing)
   (progn
