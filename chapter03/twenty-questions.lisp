@@ -37,10 +37,12 @@
                  (recurse no)
                  (give-up thing))))
          (give-up (thing)
-           t)
+           (progn
+             (format t "giving up...")
+             t))
          (bingo! (thing)
            (progn
-             (format "Bingo!")
+             (format t "Bingo!")
              t)))
     (case (ask-about thing)
       (yes (recurse-yes thing))
