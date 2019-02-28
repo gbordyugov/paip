@@ -32,9 +32,11 @@
 
 (defun ask-about (thing)
   (progn
-    (format t "Is it ~A?" (thing-name thing))
+    (format t "Is it ~A? " (thing-name thing))
     (case (read)
       ((y yes) 'yes)
       ((n no ) 'no)
       (it      'it)
       (t       (ask-about thing)))))
+
+;; (ask-about (make-thing 'thing))
