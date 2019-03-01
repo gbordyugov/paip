@@ -26,16 +26,14 @@
 ;;
 
 (defun recurse-yes (thing)
-  (let ((yes (thing-yes thing)))
-    (if yes
-        (recurse yes)
-        (give-up))))
+  (if thing
+      (recurse thing)
+      (give-up)))
 
 (defun recurse-no (thing)
-  (let ((no (thing-no thing)))
-    (if no
-        (recurse no)
-        (give-up))))
+  (if thing
+      (recurse thing)
+      (give-up)))
 
 (defun give-up ()
   (progn
@@ -46,7 +44,7 @@
 (defun bingo! (thing)
   (progn
     (format t "Bingo!")
-    t))
+    thing))
 
 (defun ask-about (thing)
   (progn
@@ -55,17 +53,17 @@
       ((y yes) 'yes)
       ((n no ) 'no)
       (it      'it)
-      ;; incomprehensible reply
+      ;; incomprehensible reply, repeat the question
       (t       (ask-about thing)))))
 
 (defun recurse (thing)
-  (case (ask-about thing)
-    (yes (recurse-yes thing))
-    (no  (recurse-no  thing))
-    (it  (bingo!      thing))))
-
-;; (ask-about (make-thing 'thing))
-(recurse (make-thing 'thing))
+  (let ((name (thing-name thing))
+        (yes  (thing-yes  thing))
+        (no   (thing-no   thing)))
+    (case (ask-about thing)
+      (yes (make-thing name (recurse-yes yes) no))
+      (no  (make-thing name yes (recurse-no no)))
+      (it  (bingo! thing)))))
 
 (defun play (&optional (thing (make-thing 'thing)))
   (progn

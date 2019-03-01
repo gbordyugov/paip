@@ -412,3 +412,7 @@ b
 (nconc x y)
 x
 y
+
+;;
+;; for Exercise 3.5 see `twenty-questions.lisp`
+;;
