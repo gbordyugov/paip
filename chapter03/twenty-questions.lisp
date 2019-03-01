@@ -29,18 +29,19 @@
   (let ((yes (thing-yes thing)))
     (if yes
         (recurse yes)
-        (give-up thing))))
+        (give-up))))
 
 (defun recurse-no (thing)
   (let ((no (thing-no thing)))
     (if no
         (recurse no)
-        (give-up thing))))
+        (give-up))))
 
-(defun give-up (thing)
+(defun give-up ()
   (progn
-    (format t "Giving up. What is this?")
-    (read)))
+    (format t "Giving up. What is this? ")
+    (let ((name (read)))
+      (make-thing name))))
 
 (defun bingo! (thing)
   (progn
@@ -49,7 +50,7 @@
 
 (defun ask-about (thing)
   (progn
-    (format t "Is it ~A? " (thing-name thing))
+    (format t "Is it a ~A? " (thing-name thing))
     (case (read)
       ((y yes) 'yes)
       ((n no ) 'no)
@@ -64,3 +65,10 @@
 
 ;; (ask-about (make-thing 'thing))
 (recurse (make-thing 'thing))
+
+(defun play (&optional (thing (make-thing 'thing)))
+  (progn
+    (format t "My database: ~A" thing)
+    (play (recurse thing))))
+
+(play)
