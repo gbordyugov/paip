@@ -40,7 +40,7 @@
 (defun give-up (thing)
   (progn
     (format t "Giving up. What is this?")
-    (read))
+    (read)))
 
 (defun bingo! (thing)
   (progn
