@@ -55,6 +55,7 @@
       ((y yes) 'yes)
       ((n no ) 'no)
       (it      'it)
+      ;; incomprehensible reply
       (t       (ask-about thing)))))
 
 (defun recurse (thing)
