@@ -416,3 +416,27 @@ y
 ;;
 ;; for Exercise 3.5 see `twenty-questions.lisp`
 ;;
+
+;;
+;; 3.13 Debugging
+;;
+
+(step (+ 3 4 (* 5 6 (/ 7 8))))
+
+;;
+;; 3.14 Antibugging Tools
+;;
+
+(defun sqr (x)
+  "Multiply x by itself."
+  (check-type x number)
+  (* x x))
+
+;;
+;; Timing Tools
+;;
+
+(defun f (n)
+  (dotimes (i n) nil))
+
+(time (f 100000))
