@@ -454,3 +454,31 @@ y
 (apply #'+ 1 2 '(3 4))
 
 (eval '(+ 1 2 3 4))
+
+;;
+;; 3.16 Closures
+;;
+
+(mapcar #'(lambda (x) (+ x x)) '(1 3 10))
+
+(defun adder (c)
+  "Return a function that adds c to its argument."
+  #'(lambda (x) (+ x c)))
+
+(mapcar (adder 3) '(1 3 10))
+
+(mapcar (adder 10) '(1 3 10))
+
+(defun bank-account (balance)
+  "Open a bank account starting with the given balance."
+  #'(lambda (action amount)
+      (case action
+        (deposit  (setf balance (+ balance amount)))
+        (withdraw (setf balance (- balance amount))))))
+
+(setf   my-account (bank-account 500.00))
+(setf your-account (bank-account 250.00))
+(funcall my-account 'withdraw 75.0)
+(funcall your-account 'deposit 250.0)
+(funcall your-account 'withdraw 100.0)
+(funcall my-account 'withdraw 25.00)
