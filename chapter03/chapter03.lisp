@@ -509,3 +509,19 @@ y
 (let ((a 'local-a)
       (*b* 'local-b))
   (list a *b* (fn) (symbol-value 'a) (symbol-value '*b*)))
+
+
+;;
+;; 3.18 Multiple Values
+;;
+
+(round 5.1)
+
+(defun show-both (x)
+  (multiple-value-bind (int rem)
+      (round x)
+    (format t "~f = ~d + ~f" x int rem)))
+
+(show-both 5.1)
+
+(values 1 2 3)
