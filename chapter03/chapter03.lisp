@@ -482,3 +482,30 @@ y
 (funcall your-account 'deposit 250.0)
 (funcall your-account 'withdraw 100.0)
 (funcall my-account 'withdraw 25.00)
+
+;;
+;; 3.17 Special Variables
+;;
+
+(defvar *counter* 0)
+
+(defun report-counter ()
+  (format t "Counter = ~d" *counter*))
+
+(report-counter)
+
+(let ((*counter* 100))
+  (report-counter))
+
+;;
+;; Exercise 3.6
+;;
+
+(setf a 'global-a)
+(defvar *b* 'global-b)
+
+(defun fn () *b*)
+
+(let ((a 'local-a)
+      (*b* 'local-b))
+  (list a *b* (fn) (symbol-value 'a) (symbol-value '*b*)))
