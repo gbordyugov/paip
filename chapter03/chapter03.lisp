@@ -543,3 +543,58 @@ y
       (princ "Sorry, that's not right.")))
 
 (math-quiz '+ 5 5)
+
+(defun math-quiz (&optional (op '+) (range 100) (n 10))
+  "Ask the user a series of math problems."
+  (dotimes (i n)
+    (problem (random range) op (random range))))
+
+(defun math-quiz (&key (op '+) (range 100) (n 10))
+  "Ask the user a series of math problems."
+  (dotimes (i n)
+    (problem (random range) op (random range))))
+
+:xyz
+
+;; &optional
+
+'&optional
+
+(defun f (&xyz) (+ &xyz &xyz))
+(f 3)
+
+;; (defun f (:xyz) (+ :xyz :xyz))
+
+(defun g (&key x y) (list x y))
+
+(let ((keys '(:x :y :z)))
+  (g (second keys) 1 (first keys) 2))
+
+(find 3 '(1 2 3 4 -5 6.0))
+
+(find 6 '(1 2 3 4 -5 6.0))
+
+(find 6 '(1 2 3 4 -5 6.0) :test #'equalp)
+
+(find 4 '(1 2 3 4 -5 6.0) :test #'<)
+
+(find 5 '(1 2 3 4 -5 6.0) :key #'abs)
+
+(setf (symbol-function 'find-all-if) #'remove-if-not)
+
+(setf nums '(1 2 3 2 1))
+
+;; (find-all 1 nums :test #'=)
+
+(defun find-all (item sequence &rest keyword-args
+                                 &key (test #'eql) test-not
+                                   &allow-other-keys)
+  "Find all those elements of sequence that match item,
+   according to the keywords. Doesn't alter sequence."
+  (if test-not
+      (apply #'remove item sequence
+             :test-not (complement test-not) keyword-args)
+      (apply #'remove item sequence
+            :test (complement test) keyword-args)))
+
+(find-all 1 nums :test #'= :key #'abs)
