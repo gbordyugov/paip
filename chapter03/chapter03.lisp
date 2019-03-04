@@ -440,3 +440,17 @@ y
   (dotimes (i n) nil))
 
 (time (f 100000))
+
+;;
+;; 3.15 Evaluation
+;;
+
+(+ 1 2 3 4)
+
+(funcall #'+ 1 2 3 4)
+
+(apply #'+ '(1 2 3 4))
+
+(apply #'+ 1 2 '(3 4))
+
+(eval '(+ 1 2 3 4))
