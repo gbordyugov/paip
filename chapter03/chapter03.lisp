@@ -598,3 +598,9 @@ y
             :test (complement test) keyword-args)))
 
 (find-all 1 nums :test #'= :key #'abs)
+
+;;
+;; Exercise 3.7
+;;
+;; It makes it easier to override values.
+;;
