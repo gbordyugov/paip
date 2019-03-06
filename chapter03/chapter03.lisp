@@ -602,5 +602,30 @@ y
 ;;
 ;; Exercise 3.7
 ;;
-;; It makes it easier to override values.
+;; It makes it easier to override parameter values.
 ;;
+
+;;
+;; Exercise 3.8
+;;
+
+(defun f (&rest keyword-args &key bla &allow-other-keys)
+  (princ keyword-args))
+
+(defun remove-this-and-next (item lst)
+  "Remove the item from the list and the next element, too."
+  (let ((next (second (member item lst))))
+    (remove item (remove next lst))))
+
+(remove-this-and-next 2 '(1 2 3 4))
+
+(defun find-all (item sequence &rest keyword-args
+                                 &key (test #'eql) test-not
+                                   &allow-other-keys)
+  "Find all those elements of sequence that match item,
+   according to the keywords. Doesn't alter sequence."
+  (if test-not
+      (apply #'remove item sequence :test-not (complement test-not)
+             (remove-this-and-next :test-not keyword-args))
+      (apply #'remove item sequence :test (complement test)
+             (remove-this-and-next :test keyword-args))))
