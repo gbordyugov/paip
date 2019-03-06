@@ -645,3 +645,11 @@ y
 
 (describe 'lcm)
 (describe 'nreconc)
+
+;;
+;; Exercise 3.11
+;;
+
+(defun extend-alist (key value alist)
+  (let ((pair (list key value)))
+    (cons pair alist)))
