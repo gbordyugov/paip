@@ -659,6 +659,6 @@ y
 ;;
 
 (defun exercise-3-12 (lst)
-  (format t "~{~a ~}" lst))
+  (format t "~@(~{~a~^ ~}~)." lst))
 
 (exercise-3-12 '(quick brown fox))
