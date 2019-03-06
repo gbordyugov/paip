@@ -638,3 +638,10 @@ y
   (reduce #'(lambda (counter element) (+ counter 1)) lst))
 
 (length-reduce '(1 2 3 4))
+
+;;
+;; Exercise 3.10
+;;
+
+(describe 'lcm)
+(describe 'nreconc)
