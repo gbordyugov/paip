@@ -653,3 +653,12 @@ y
 (defun extend-alist (key value alist)
   (let ((pair (list key value)))
     (cons pair alist)))
+
+;;
+;; Exercise 3.12
+;;
+
+(defun exercise-3-12 (lst)
+  (format t "~{~a ~}" lst))
+
+(exercise-3-12 '(quick brown fox))
