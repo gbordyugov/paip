@@ -629,3 +629,12 @@ y
              (remove-this-and-next :test-not keyword-args))
       (apply #'remove item sequence :test (complement test)
              (remove-this-and-next :test keyword-args))))
+
+;;
+;; Exercise 3.9
+;;
+
+(defun length-reduce (lst)
+  (reduce #'(lambda (counter element) (+ counter 1)) lst))
+
+(length-reduce '(1 2 3 4))
