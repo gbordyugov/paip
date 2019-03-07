@@ -25,7 +25,7 @@
 
 ;; A complete problem is described to GPS in terms of a starting
 ;; state, a goal state, and a set of known operators.
-(defun GPS (*state* goals *ops)
+(defun GPS (*state* goals *ops*)
   "General Problem Solver: achieve all goals using *ops*."
   (if (every #'achieve goals) 'solved))
 
