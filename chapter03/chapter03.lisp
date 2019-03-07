@@ -587,8 +587,7 @@ y
 ;; (find-all 1 nums :test #'=)
 
 (defun find-all (item sequence &rest keyword-args
-                                 &key (test #'eql) test-not
-                                   &allow-other-keys)
+                 &key (test #'eql) test-not &allow-other-keys)
   "Find all those elements of sequence that match item,
    according to the keywords. Doesn't alter sequence."
   (if test-not
@@ -620,8 +619,7 @@ y
 (remove-this-and-next 2 '(1 2 3 4))
 
 (defun find-all (item sequence &rest keyword-args
-                                 &key (test #'eql) test-not
-                                   &allow-other-keys)
+                 &key (test #'eql) test-not &allow-other-keys)
   "Find all those elements of sequence that match item,
    according to the keywords. Doesn't alter sequence."
   (if test-not
