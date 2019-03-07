@@ -25,16 +25,6 @@
 ;; the main recursion
 ;;
 
-(defun recurse-yes (thing)
-  (if thing
-      (recurse thing)
-      (give-up)))
-
-(defun recurse-no (thing)
-  (if thing
-      (recurse thing)
-      (give-up)))
-
 (defun give-up ()
   (progn
     (format t "Giving up. What is this? ")
@@ -56,13 +46,18 @@
       ;; incomprehensible reply, repeat the question
       (t       (ask-about thing)))))
 
+(defun check-and-recurse (thing)
+  (if thing
+      (recurse thing)
+      (give-up)))
+
 (defun recurse (thing)
   (let ((name (thing-name thing))
         (yes  (thing-yes  thing))
         (no   (thing-no   thing)))
     (case (ask-about thing)
-      (yes (make-thing name (recurse-yes yes) no))
-      (no  (make-thing name yes (recurse-no no)))
+      (yes (make-thing name (check-and-recurse yes) no))
+      (no  (make-thing name yes (check-and-recurse no)))
       (it  (bingo! thing)))))
 
 (defun play (&optional (thing (make-thing 'thing)))
