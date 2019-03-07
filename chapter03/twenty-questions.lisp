@@ -62,8 +62,7 @@
 
 (defun play (&optional (thing (make-thing 'thing)))
   (progn
-    (format t "My database: ~a" thing)
-    ;; (princ thing)
+    (format t "~&My database: ~a ~&" thing)
     (play (recurse thing))))
 
 (play)
