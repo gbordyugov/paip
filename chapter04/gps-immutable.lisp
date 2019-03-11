@@ -51,7 +51,7 @@
                    (achieve goal state ops))
                (op-action op))
     (print (list 'executing (op-action op)))
-    ;; I'll have to think about what to do here in an immutable version.
+    ;; I'll have to think about what to do here in the immutable version.
     (setf *state* (set-difference *state* (op-del-list op)))
     (setf *state* (union *state* (op-add-list op)))
     t))
