@@ -32,7 +32,7 @@
    op for it that is applicable."
   (or (member goal state)
       (flet ((apply-op-to-this-state (op)
-               (apply-op state op)))
+               (apply-op state op ops)))
         (some #'apply-op-to-this-state (find-all goal ops :test #'appropriate-p)))))
 
 ;; An operator is appropriate if one of the effects of the operator is
@@ -44,10 +44,14 @@
 
 ;; We can apply an operator to a state if we can achieve all the
 ;; preconditions of the state.
-(defun apply-op (state op)
+(defun apply-op (state op ops)
   "Print a message and update *state* if op is applicable."
-  (when (every #'achieve (op-preconds op))
+  ;; (when (every #'achieve (op-preconds op))
+  (when (every #'(lambda (goal)
+                   (achieve goal state ops))
+               (op-action op))
     (print (list 'executing (op-action op)))
+    ;; I'll have to think about what to do here in an immutable version.
     (setf *state* (set-difference *state* (op-del-list op)))
     (setf *state* (union *state* (op-add-list op)))
     t))
