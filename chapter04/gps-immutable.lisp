@@ -19,7 +19,7 @@
    `state` using `ops`."
   (flet ((goal-achievable-p (goal)
            (achieve goal state ops)))
-  (if (every #'goal-achievable goals)
+  (if (every #'goal-achievable-p goals)
       'solved
       'there-was-unfortunately-no-solution)))
 
@@ -30,9 +30,9 @@
 (defun achieve (goal state ops)
   "A goal is achieved if it already holds, or if there is an appropriate
    op for it that is applicable."
-  (flet ((apply-op-to-this-state (op)
-           (apply-op state op)))
-    (or (member goal state)
+  (or (member goal state)
+      (flet ((apply-op-to-this-state (op)
+               (apply-op state op)))
         (some #'apply-op-to-this-state (find-all goal ops :test #'appropriate-p)))))
 
 ;; An operator is appropriate if one of the effects of the operator is
