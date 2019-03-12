@@ -72,3 +72,16 @@
              :test-not (complement test-not) keyword-args)
       (apply #'remove item sequence
             :test (complement test) keyword-args)))
+
+(defun filter (predicate seq)
+  "Return list containing only those elements of `seq` that satisfy the unary
+   `predicate`."
+  (labels ((rec (seq acc)
+             (cond
+               ((null seq) acc)
+               ((funcall predicate (first seq))
+                (rec (rest seq) (cons (first seq) acc)))
+               (t (rec (rest seq) acc)))))
+    (reverse (rec seq '()))))
+
+(filter #'oddp '(1 2 3 4 5 6 7))
