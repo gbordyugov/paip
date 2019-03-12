@@ -33,11 +33,12 @@
   (or (member goal state)
       (flet ((apply-op-to-this-state (op)
                (apply-op state op ops))
-             (appropriate (op)
+             (productive-op-p (op)
                (appropriate-p goal op)))
         ;; This call relies on mutability
         ;; (some #'apply-op-to-this-state (find-all goal ops :test #'appropriate-p)))))
-        (some #'apply-op-to-this-state (filter #'appropriate ops)))))
+        (let ((productive-ops (filter #'productive-op-p ops)))
+          (some #'apply-op-to-this-state productive-ops)))))
 
 ;; An operator is appropriate if one of the effects of the operator is
 ;; to add the goal in question to the current state; in other words,
