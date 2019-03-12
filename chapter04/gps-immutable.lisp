@@ -75,7 +75,7 @@
 
 (defun filter (predicate seq)
   "Return list containing only those elements of `seq` that satisfy the unary
-   `predicate`."
+   `predicate`. Uses tail recursion."
   (labels ((rec (seq acc)
              (cond
                ((null seq) acc)
