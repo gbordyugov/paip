@@ -33,6 +33,7 @@
   (or (member goal state)
       (flet ((apply-op-to-this-state (op)
                (apply-op state op ops)))
+        ;; This call relies on mutability
         (some #'apply-op-to-this-state (find-all goal ops :test #'appropriate-p)))))
 
 ;; An operator is appropriate if one of the effects of the operator is
@@ -51,7 +52,8 @@
                    (achieve goal state ops))
                (op-action op))
     (print (list 'executing (op-action op)))
-    ;; I'll have to think about what to do here in the immutable version.
+    ;; Those are obviously destructive updates. I'll have to think
+    ;; about what to do here in the immutable version.
     (setf *state* (set-difference *state* (op-del-list op)))
     (setf *state* (union *state* (op-add-list op)))
     t))
