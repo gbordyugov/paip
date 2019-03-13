@@ -50,6 +50,7 @@
 (defun apply-op (op)
   "Print a message and update *state* if op is applicable."
   (when (every #'achieve (op-preconds op))
+    ;; note that we don't print anything before having checked achievability
     (print (list 'executing (op-action op)))
     (setf *state* (set-difference *state* (op-del-list op)))
     (setf *state* (union *state* (op-add-list op)))
