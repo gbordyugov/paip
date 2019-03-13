@@ -12,57 +12,33 @@
            (add-list nil)
            (del-list nil))
 
-;; A complete problem is described to GPS in terms of a starting
-;; state, a goal state, and a set of known operators.
-(defun GPS (state goals ops)
-  "General Problem Solver: achieve all `goals` from starting from
-   `state` using `ops`."
-  (flet ((goal-achievable-p (goal)
-           (achieve goal state ops)))
-  (if (every #'goal-achievable-p goals)
-      'solved
-      'there-was-unfortunately-no-solution)))
+(defun apply-op (op state)
+  "Apply op to state, returning the resulting state. Does not check if op
+   can be applied to state."
+  (let* ((reduced-state (set-difference state (op-del-list op))))
+    (union reduced-state (op-add-list op))))
 
-;; A single goal condition can be achieved in two ways. If it is
-;; already in the current state, the goal is trivially achieved with
-;; no effort. Otherwise, we have to find some appropriate operator and
-;; try to apply it.
-(defun achieve (goal state ops)
-  "A goal is achieved if it already holds, or if there is an appropriate
-   op for it that is applicable."
-  (or (member goal state)
-      (flet ((apply-op-to-this-state (op)
-               (apply-op state op ops))
-             (productive-op-p (op)
-               (appropriate-p goal op)))
-        ;; This call relies on mutability
-        ;; (some #'apply-op-to-this-state (find-all goal ops :test #'appropriate-p)))))
-        (let ((productive-ops (filter #'productive-op-p ops)))
-          (some #'apply-op-to-this-state productive-ops)))))
+(let ((state '(bli blu))
+      (op (make-op :action 'what
+                     :preconds '()
+                     :add-list '(bla)
+                     :del-list '(blu))))
+  (apply-op op state))
 
-;; An operator is appropriate if one of the effects of the operator is
-;; to add the goal in question to the current state; in other words,
-;; if the goal is in the operator's add-list.
-(defun appropriate-p (goal op)
-  "An op is appropriate to a goal if it is in its add list."
-  (member goal (op-add-list op)))
+(defun op-applicable-p (state op)
+  "Check if operator can be applied to state."
+  (every #'(lambda (prec) (member prec state)) (op-preconds op)))
 
-;; We can apply an operator to a state if we can achieve all the
-;; preconditions of the state.
-(defun apply-op (state op ops)
-  "Print a message and update *state* if op is applicable."
-  ;; (when (every #'achieve (op-preconds op))
-  (when (every #'(lambda (goal)
-                   (achieve goal state ops))
-               (op-action op))
-    (print (list 'executing (op-action op)))
-    ;; Those are obviously destructive updates. I'll have to think
-    ;; about what to do here in the immutable version.
-    (setf *state* (set-difference *state* (op-del-list op)))
-    (setf *state* (union *state* (op-add-list op)))
-    t))
-
-
+(let ((state '(bli blu))
+      (op1 (make-op :action 'what
+                     :preconds '(bla)
+                     :add-list '(ble)
+                     :del-list '(blu)))
+      (op2 (make-op :action 'what
+                     :preconds '(bli)
+                     :add-list '(bla)
+                     :del-list '(blu))))
+  (op-applicable-p state op2))
 
 ;;
 ;; Auxiliary functions.
