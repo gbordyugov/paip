@@ -6,7 +6,7 @@
 ;; list of preconditions, and a list of effects. The list of effects
 ;; can be split into an add-list (what conditions this operator adds)
 ;; and a delete-list (what conditions this operator deletes).
-(defstruct op "An operation"
+(defstruct op "An operation."
            (action nil)
            (preconds nil)
            (add-list nil)
@@ -18,16 +18,21 @@
   (let* ((reduced-state (set-difference state (op-del-list op))))
     (union reduced-state (op-add-list op))))
 
-(let ((state '(bli blu))
-      (op (make-op :action 'what
-                     :preconds '()
-                     :add-list '(bla)
-                     :del-list '(blu))))
-  (apply-op op state))
-
-(defun op-applicable-p (state op)
+(defun op-applicable-p (op state)
   "Check if operator can be applied to state."
   (every #'(lambda (prec) (member prec state)) (op-preconds op)))
+
+(defun apply-and-track (op state)
+  "Check if op can be applied to state, if so, return new state and the applied op."
+  (when (op-applicable-p op state)
+    (list (apply-state op state) op)))
+
+(defun gps (start-state end-state ops)
+  t)
+
+;;
+;; Some tests
+;;
 
 (let ((state '(bli blu))
       (op1 (make-op :action 'what
@@ -38,7 +43,14 @@
                      :preconds '(bli)
                      :add-list '(bla)
                      :del-list '(blu))))
-  (op-applicable-p state op2))
+  (op-applicable-p op2 state))
+
+(let ((state '(bli blu))
+      (op (make-op :action 'what
+                     :preconds '()
+                     :add-list '(bla)
+                     :del-list '(blu))))
+  (apply-op op state))
 
 ;;
 ;; Auxiliary functions.
