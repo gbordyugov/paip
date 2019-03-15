@@ -12,6 +12,10 @@
            (add-list nil)
            (del-list nil))
 
+;;
+;; A state is a set (represented as a Lisp list) of readily achieved goals.
+;;
+
 (defun apply-op (op state)
   "Apply op to state, returning the resulting state. Does not check if op
    can be applied to state."
@@ -28,6 +32,9 @@
     (list (apply-state op state) op)))
 
 (defun gps (start-state end-state ops)
+  t)
+
+(defun achive (from-state to-state ops)
   t)
 
 ;;
