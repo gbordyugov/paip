@@ -35,7 +35,9 @@
   t)
 
 (defun achive (from-state to-state ops)
-  t)
+  (or (subsetp to-state from-state)
+      ;; or there is at least one operator that takes from-state to to-state
+      t))
 
 ;;
 ;; Some tests
