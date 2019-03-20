@@ -24,7 +24,7 @@
 
 (defun op-applicable-p (op state)
   "Check if operator can be applied to state."
-  (every #'(lambda (prec) (member prec state)) (op-preconds op)))
+  (subsetp (op-preconds op) state))
 
 (defun apply-and-track (op state)
   "Check if op can be applied to state, if so, return new state and the applied op."
