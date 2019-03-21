@@ -34,7 +34,8 @@
 (defun gps (start-state end-state ops)
   (every #'(lambda (goal) (achieve goal start-state ops)) end-state))
 
-(defun achive (goal state ops)
+(defun achive-one-goal (goal state ops)
+  "Attempts to achieve goal from state using ops. What should it return?"
   (or (member goal state)
       ;; or there is at least one operator that takes from-state to to-state
       t))
