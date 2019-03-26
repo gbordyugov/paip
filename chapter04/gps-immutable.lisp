@@ -35,12 +35,14 @@
       t))
 
 (defun ops-pointing-at (ops goal)
+  "Find all operators from ops that have goal as part of their add-list."
   (remove goal ops :test #'(lambda (goal op)
                                (not (member goal (op-add-list op))))))
 
 (ops-pointing-at ops 'son-at-school)
 
 (defun goal-achieved-p (state goal)
+  "Check if goal is already part of state."
   (member goal state))
 
 (setq ops
