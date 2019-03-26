@@ -32,10 +32,13 @@
   (if (goal-achieved-p from-state goal)
       from-state
       ;; if goal is not part of from-state, we need to apply one of ops
-      (let ((potential-ops (ops-pointing-at ops goal)))
-        t)))
-
-(some #'(lambda (x) 'bla) '(1 2 3))
+      (let* ((potential-ops (ops-pointing-at ops goal))
+             (pre-pre-state (some #'(lambda (op)
+                                  (achieve-state from-state
+                                                 (op-preconds op) ops))
+                              potential-ops))
+             (pre-state (set-difference pre-pre-state (op-del-list ???))))
+        (union pre-state (op-add-list ???)))))
 
 (defun ops-pointing-at (ops goal)
   "Find all operators from ops that have goal as part of their add-list."
