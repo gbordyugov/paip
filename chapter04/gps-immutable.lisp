@@ -21,17 +21,19 @@
 ;;
 
 (defun achieve-state (from-state to-state ops)
-  "Try to achive to-state from from-state using operators ops. Return
+  "Try to achieve to-state from from-state using operators ops. Return
    state which is (possibly) a superset of to-state if achievalbe,
    otherwise nil."
-  t)
+  (if (subsetp to-state from-state)
+      t
+      (let ((res (mapcar #'(lambda (g) (achieve))
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
   (reduce #'union sets))
 
-(defun achive-goal (from-state goal ops)
-  "Try to achive goal from from-state using operators ops. Return
+(defun achieve-goal (from-state goal ops)
+  "Try to achieve goal from from-state using operators ops. Return
    state containing goal if goal is achievable, otherwise nil."
   (if (goal-achieved-p from-state goal)
       from-state
@@ -46,7 +48,7 @@
 
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state by fulfilling the preconditions of op."
-  (let ((attempted-state (achive-state state (op-preconds op) ops)))
+  (let ((attempted-state (achieve-state state (op-preconds op) ops)))
     (if attempted-state
         (let* (( reduced-state (set-difference attempted-state (op-del-list op)))
                (expanded-state (union          reduced-state   (op-add-list op))))
