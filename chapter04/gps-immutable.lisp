@@ -26,7 +26,10 @@
    otherwise nil."
   (if (subsetp to-state from-state)
       t
-      (let ((res (mapcar #'(lambda (g) (achieve))
+      (let ((res (mapcar #'(lambda (g)
+                             (achieve-goal from-state g ops))
+                         to-state)))
+        (concat-list-of-sets res))))
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
