@@ -35,39 +35,13 @@
       t))
 
 (defun ops-pointing-at (ops goal)
-  (find-all goal ops :test #'(lambda (goal op)
-                               (member goal (op-add-list op)))))
+  (remove goal ops :test #'(lambda (goal op)
+                               (not (member goal (op-add-list op))))))
 
 (ops-pointing-at ops 'son-at-school)
 
 (defun goal-achieved-p (state goal)
   (member goal state))
-
-;;
-;; Auxiliary functions.
-;;
-(defun find-all (item sequence &rest keyword-args
-                 &key (test #'eql) test-not &allow-other-keys)
-  "Find all those elements of sequence that match item,
-   according to the keywords. Doesn't alter sequence."
-  (if test-not
-      (apply #'remove item sequence
-             :test-not (complement test-not) keyword-args)
-      (apply #'remove item sequence
-            :test (complement test) keyword-args)))
-
-(defun filter (predicate seq)
-  "Return list containing only those elements of `seq` that satisfy the unary
-   `predicate`. Uses tail recursion."
-  (labels ((rec (seq acc)
-             (cond
-               ((null seq) acc)
-               ((funcall predicate (first seq))
-                (rec (rest seq) (cons (first seq) acc)))
-               (t (rec (rest seq) acc)))))
-    (reverse (rec seq '()))))
-
-(filter #'oddp '(1 2 3 4 5 6 7))
 
 (setq ops
   (list
