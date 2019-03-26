@@ -26,6 +26,10 @@
    otherwise nil."
   t)
 
+(defun concat-list-of-sets (sets)
+  "Return union of all sets in the list."
+  (reduce #'union sets))
+
 (defun achive-goal (from-state goal ops)
   "Try to achive goal from from-state using operators ops. Return
    state containing goal if goal is achievable, otherwise nil."
