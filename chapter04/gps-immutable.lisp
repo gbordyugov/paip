@@ -32,7 +32,10 @@
   (if (goal-achieved-p from-state goal)
       from-state
       ;; if goal is not part of from-state, we need to apply one of ops
-      t))
+      (let ((potential-ops (ops-pointing-at ops goal)))
+        t)))
+
+(some #'(lambda (x) 'bla) '(1 2 3))
 
 (defun ops-pointing-at (ops goal)
   "Find all operators from ops that have goal as part of their add-list."
