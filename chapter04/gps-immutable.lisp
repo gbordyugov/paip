@@ -41,7 +41,7 @@
         (union pre-state (op-add-list ???)))))
 
 (defun apply-op-to-state (op state ops)
-  "Try to apply op to state."
+  "Try to apply op to state by fulfilling the preconditions of op."
   (let ((attempted-state (achive-state state (op-preconds op) ops)))
     (if attempted-state
         (let* (( reduced-state (set-difference attempted-state (op-del-list op)))
