@@ -13,54 +13,24 @@
            (del-list nil))
 
 ;;
-;; A state is a set (represented as a Lisp list) of readily achieved goals.
+;; A goal is a symbol.
+;; A state is a set (actually, a list) of goals.
+;; In order to achieve a state, we have to achieve all goals it consists of.
+;;
+;; What does 'achieve a goal/state' mean?
 ;;
 
-(defun apply-op (op state)
-  "Apply op to state, returning the resulting state. Does not check if op
-   can be applied to state."
-  (let* ((reduced-state (set-difference state (op-del-list op))))
-    (union reduced-state (op-add-list op))))
+(defun achieve-state (from-state to-state ops)
+  "Try to achive to-state from from-state using operators ops. Return
+   state which is (possibly) a superset of to-state if achievalbe,
+   otherwise nil."
+  t)
 
-(defun op-applicable-p (op state)
-  "Check if operator can be applied to state."
-  (subsetp (op-preconds op) state))
+(defun achive-goal (from-state goal ops)
+  "Try to achive goal from from-state using operators ops. Return
+   state containing goal if goal is achievable, otherwise nil."
+  t)
 
-(defun apply-and-track (op state)
-  "Check if op can be applied to state, if so, return new state and the applied op."
-  (when (op-applicable-p op state)
-    (list (apply-state op state) op)))
-
-(defun gps (start-state end-state ops)
-  (every #'(lambda (goal) (achieve goal start-state ops)) end-state))
-
-(defun achive-one-goal (goal state ops)
-  "Attempts to achieve goal from state using ops. What should it return?"
-  (or (member goal state)
-      ;; or there is at least one operator that takes from-state to to-state
-      t))
-
-;;
-;; Some tests
-;;
-
-(let ((state '(bli blu))
-      (op1 (make-op :action 'what
-                     :preconds '(bla)
-                     :add-list '(ble)
-                     :del-list '(blu)))
-      (op2 (make-op :action 'what
-                     :preconds '(bli)
-                     :add-list '(bla)
-                     :del-list '(blu))))
-  (op-applicable-p op2 state))
-
-(let ((state '(bli blu))
-      (op (make-op :action 'what
-                     :preconds '()
-                     :add-list '(bla)
-                     :del-list '(blu))))
-  (apply-op op state))
 
 ;;
 ;; Auxiliary functions.
