@@ -43,10 +43,11 @@
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state."
   (let ((attempted-state (achive-state state (op-preconds op) ops)))
-    (when attempted-state
-      (let* (( reduced-state (set-difference attempted-state (op-del-list op)))
-             (expanded-state (union          reduced-state   (op-add-list op))))
-        expanded-state))))
+    (if attempted-state
+        (let* (( reduced-state (set-difference attempted-state (op-del-list op)))
+               (expanded-state (union          reduced-state   (op-add-list op))))
+          expanded-state)
+        nil)))
 
 (defun ops-pointing-at (ops goal)
   "Find all operators from ops that have goal as part of their add-list."
