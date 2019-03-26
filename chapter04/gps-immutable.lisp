@@ -24,6 +24,7 @@
   "Try to achive to-state from from-state using operators ops. Return
    state which is (possibly) a superset of to-state if achievalbe,
    otherwise nil."
+
   t)
 
 (defun achive-goal (from-state goal ops)
