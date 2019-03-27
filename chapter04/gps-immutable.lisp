@@ -40,7 +40,7 @@
 (defun achieve-goal (from-state goal ops)
   "Try to achieve goal from from-state using operators ops. Return
    state containing goal if goal is achievable, otherwise nil."
-  (if (goal-achieved-p from-state goal)
+  (if (member goal from-state)
       from-state
       ;; if goal is not part of from-state, we need to apply one of ops
       (let* ((potential-ops (ops-pointing-at ops goal))
@@ -68,10 +68,6 @@
                                (not (member goal (op-add-list op))))))
 
 (ops-pointing-at ops 'son-at-school)
-
-(defun goal-achieved-p (state goal)
-  "Check if goal is already part of state."
-  (member goal state))
 
 (setq ops
   (list
