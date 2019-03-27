@@ -44,6 +44,7 @@
       from-state
       ;; if goal is not part of from-state, we need to apply one of ops
       (let* ((potential-ops (ops-pointing-at ops goal))
+             ;; the problem here is that we need both op and the updated state
              (op (some #'(lambda (op)
                                   (achieve-state from-state
                                                  (op-preconds op) ops))
@@ -54,8 +55,10 @@
   "Try to apply op to state by fulfilling the preconditions of op."
   (let ((attempted-state (achieve-state state (op-preconds op) ops)))
     (if attempted-state
-        (let* (( reduced-state (set-difference attempted-state (op-del-list op)))
-               (expanded-state (union          reduced-state   (op-add-list op))))
+        (let* ((reduced-state
+                (set-difference attempted-state (op-del-list op)))
+               (expanded-state
+                (union reduced-state (op-add-list op))))
           expanded-state)
         nil)))
 
