@@ -31,7 +31,7 @@
                          to-state)))
         (concat-list-of-sets res))))
 
-(achieve-state '(son-at-home car-works) '(sone-at-school) ops)
+(achieve-state '(son-at-home car-works) '(son-at-school) ops)
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
@@ -48,7 +48,7 @@
                                   (achieve-state from-state
                                                  (op-preconds op) ops))
                               potential-ops)))
-        (apply-op-to-state op from-state ops))))
+        (when op (apply-op-to-state op from-state ops)))))
 
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state by fulfilling the preconditions of op."
