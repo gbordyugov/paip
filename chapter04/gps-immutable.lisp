@@ -31,6 +31,8 @@
                          to-state)))
         (concat-list-of-sets res))))
 
+(achieve-state '(son-at-home car-works) '(sone-at-school) ops)
+
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
   (reduce #'union sets))
@@ -42,12 +44,11 @@
       from-state
       ;; if goal is not part of from-state, we need to apply one of ops
       (let* ((potential-ops (ops-pointing-at ops goal))
-             (pre-pre-state (some #'(lambda (op)
+             (op (some #'(lambda (op)
                                   (achieve-state from-state
                                                  (op-preconds op) ops))
-                              potential-ops))
-             (pre-state (set-difference pre-pre-state (op-del-list ???))))
-        (union pre-state (op-add-list ???)))))
+                              potential-ops)))
+        (apply-op-to-state op from-state ops))))
 
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state by fulfilling the preconditions of op."
