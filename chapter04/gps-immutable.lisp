@@ -25,7 +25,7 @@
    state which is (possibly) a superset of to-state if achievalbe,
    otherwise nil."
   (if (subsetp to-state from-state)
-      t
+      from-state
       (let ((res (mapcar #'(lambda (g)
                              (achieve-goal from-state g ops))
                          to-state)))
