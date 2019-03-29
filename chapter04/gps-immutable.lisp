@@ -57,7 +57,8 @@
                          to-state)))
         (concat-list-of-sets res))))
 
-(achieve-state '(son-at-home car-works) '(son-at-school) ops)
+(achieve-state '(son-at-home car-works)
+               '(son-at-school) ops)
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
@@ -71,11 +72,17 @@
       ;; if goal is not part of from-state, we need to apply one of ops
       (let* ((potential-ops (ops-pointing-at ops goal))
              ;; the problem here is that we need both op and the updated state
-             (op (some #'(lambda (op)
-                                  (achieve-state from-state
-                                                 (op-preconds op) ops))
-                              potential-ops)))
-        (when op (apply-op-to-state op from-state ops)))))
+             (state-and-op (some #'(lambda (op)
+                                     (let ((new-state (achieve-state
+                                                       from-state
+                                                       (op-preconds op) ops)))
+                                       (when new-state
+                                         (cons new-state op))))
+                                 potential-ops)))
+        (when state-and-op
+          (let ((state (car state-and-op))
+                (op    (cdr state-and-op)))
+            (apply-op-to-state op state ops))))))
 
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state by fulfilling the preconditions of op."
