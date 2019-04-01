@@ -103,7 +103,7 @@
   (let* ((reduced-state (set-difference state (op-del-list op)))
          (expanded-state (union reduced-state (op-add-list op))))
     (progn
-      (format t "applying ~a to ~a" op state)
+      (format t "applying ~a to ~a.~%" (op-action op) state)
       expanded-state)))
 
 (defun ops-pointing-at (ops goal)
