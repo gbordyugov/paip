@@ -63,9 +63,9 @@
 (achieve-state '(son-at-home car-works) '(son-at-school) ops)
 
 ;;
-;; this one surprisingly doesn't work
+;; this one is working now, too
 ;;
-(achieve-state '(shop-has-money) '(have-money) ops)
+(achieve-state '(have-money) '(shop-has-money) ops)
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
