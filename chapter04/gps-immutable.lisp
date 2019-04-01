@@ -57,8 +57,15 @@
                          to-state)))
         (concat-list-of-sets res))))
 
-(achieve-state '(son-at-home car-works)
-               '(son-at-school) ops)
+;;
+;; this one works as expected
+;;
+(achieve-state '(son-at-home car-works) '(son-at-school) ops)
+
+;;
+;; this one surprisingly doesn't work
+;;
+(achieve-state '(shop-has-money) '(have-money) ops)
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
@@ -86,11 +93,11 @@
 
 (defun apply-op-to-state (op state ops)
   "Try to apply op to state by fulfilling the preconditions of op."
-  (let* ((reduced-state
-          (set-difference state (op-del-list op)))
-         (expanded-state
-          (union reduced-state (op-add-list op))))
-    expanded-state))
+  (let* ((reduced-state (set-difference state (op-del-list op)))
+         (expanded-state (union reduced-state (op-add-list op))))
+    (progn
+      (format t "applying ~a to ~a" op state)
+      expanded-state)))
 
 (defun ops-pointing-at (ops goal)
   "Find all operators from ops that have goal as part of their add-list."
