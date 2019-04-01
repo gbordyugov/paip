@@ -82,7 +82,8 @@
             (apply-op-to-state op state ops))))))
 
 (defun apply-op-to-state (op state ops)
-  "Try to apply op to state by fulfilling the preconditions of op."
+  "Applies operation to state. Assumes that state satisfies all the
+  preconditions of the operator. Logs the application to stdout."
   (let* ((reduced-state (set-difference state (op-del-list op)))
          (expanded-state (union reduced-state (op-add-list op))))
     (progn
