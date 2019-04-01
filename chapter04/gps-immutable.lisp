@@ -57,23 +57,6 @@
                          to-state)))
         (concat-list-of-sets res))))
 
-;;
-;; this one works as expected
-;;
-(achieve-state '(son-at-home car-works) '(son-at-school) ops)
-
-;;
-;; this one is working now, too
-;;
-(achieve-state '(have-money) '(shop-has-money) ops)
-
-;;
-;; surprisingly this one works as well :~)
-;;
-(achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
-               '(son-at-school)
-               ops)
-
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
   (reduce #'union sets))
@@ -111,4 +94,24 @@
   (remove goal ops :test #'(lambda (goal op)
                                (not (member goal (op-add-list op))))))
 
+;;
+;; simple test of above
+;;
 (ops-pointing-at ops 'son-at-school)
+
+;;
+;; this one works as expected
+;;
+(achieve-state '(son-at-home car-works) '(son-at-school) ops)
+
+;;
+;; this one is working now, too
+;;
+(achieve-state '(have-money) '(shop-has-money) ops)
+
+;;
+;; surprisingly this one works as well :~)
+;;
+(achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
+               '(son-at-school)
+               ops)
