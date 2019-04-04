@@ -55,7 +55,8 @@
       (let ((res (mapcar #'(lambda (g)
                              (achieve-goal from-state g ops))
                          to-state)))
-        (concat-list-of-sets res))))
+        (when (every #'(lambda (x) x) res)
+          (concat-list-of-sets res)))))
 
 (defun concat-list-of-sets (sets)
   "Return union of all sets in the list."
