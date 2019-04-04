@@ -123,21 +123,22 @@
 ;;
 
 ;;
-;; this can be solved correctly
+;; This can be solved correctly.
 ;;
 (achieve-state '(son-at-home have-money car-works)
                '(have-money son-at-school)
                ops)
 
 ;;
-;; but the solution of this is not correct
+;; But the solution of this is not correct, the problem being that we
+;; achieve states in succession, and not simultaneously
 ;;
 (achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
                '(have-money son-at-school)
                ops)
 
 ;;
-;; Sergey's failing test case
+;; Sergey's failing test case.
 ;;
 (achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
                '(son-at-school)
