@@ -55,6 +55,9 @@
       (let ((res (mapcar #'(lambda (g)
                              (achieve-goal from-state g ops))
                          to-state)))
+        ;; Check that all subgoals were achieved, and all resulting
+        ;; states include the target state as a subset, i.e. don't
+        ;; exclude each other.
         (when (and (every #'(lambda (x) x) res)
                    (every #'(lambda (x) (subsetp to-state x)) res))
           (concat-list-of-sets res)))))
