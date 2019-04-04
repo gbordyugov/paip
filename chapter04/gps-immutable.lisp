@@ -116,3 +116,28 @@
 (achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
                '(son-at-school)
                ops)
+
+;;
+;; Section 4.7
+;;
+
+;;
+;; this can be solved correctly
+;;
+(achieve-state '(son-at-home have-money car-works)
+               '(have-money son-at-school)
+               ops)
+
+;;
+;; but the solution of this is not correct
+;;
+(achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
+               '(have-money son-at-school)
+               ops)
+
+;;
+;; Sergey's failing test case
+;;
+(achieve-state '(son-at-home car-needs-battery have-money have-phone-book)
+               '(son-at-school)
+               ops)
