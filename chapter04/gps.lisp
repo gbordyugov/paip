@@ -106,3 +106,11 @@
      *school-ops*)
 
 (gps '(son-at-home car-works) '(son-at-school) *school-ops*)
+
+;;
+;; But the solution of this is not correct, the problem being that we
+;; achieve states in succession, and not simultaneously
+;;
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(have-money son-at-school)
+     *school-ops*)
