@@ -119,19 +119,17 @@
      '(have-money son-at-school)
      *school-ops*)
 
-;;
-;; Adding a cycled goal will make the recursion infinite...
-;;
-(push (make-op :action 'ask-phone-number
-               :preconds '(in-communication-with-shop)
-               :add-list '(know-phone-number))
-      *school-ops*)
+(when nil
+  ;; Adding a cycled goal will make the recursion infinite...
+  (let ((*extended-ops* (cons (make-op :action 'ask-phone-number
+                                       :preconds '(in-communication-with-shop)
+                                       :add-list '(know-phone-number))
+                              *school-ops*)))
 
-;;
-;; ... and this call will exhaust stack.
-(gps '(son-at-home car-needs-battery have-money)
-     '(son-at-school)
-     *school-ops*)
+    ;; ... and this call will exhaust stack.
+    (gps '(son-at-home car-needs-battery have-money)
+         '(son-at-school)
+         *extended-ops*)))
 
 (trace achieve)
 
