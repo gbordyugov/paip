@@ -113,8 +113,22 @@
 
 ;;
 ;; But the solution of this is not correct, the problem being that we
-;; achieve states in succession, and not simultaneously
+;; achieve states in succession, and not simultaneously.
 ;;
 (gps '(son-at-home car-needs-battery have-money have-phone-book)
      '(have-money son-at-school)
+     *school-ops*)
+
+;;
+;; Adding a cycled goal will make the recursion infinite...
+;;
+(push (make-op :action 'ask-phone-number
+               :preconds '(in-communication-with-shop)
+               :add-list '(know-phone-number))
+      *school-ops*)
+
+;;
+;; ... and this call will exhaust stack.
+(gps '(son-at-home car-needs-battery have-money)
+     '(son-at-school)
      *school-ops*)
