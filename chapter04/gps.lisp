@@ -27,7 +27,7 @@
 ;; state, a goal state, and a set of known operators.
 (defun GPS (*state* goals *ops*)
   "General Problem Solver: achieve all goals using *ops*."
-  (if (every #'achieve goals) 'solved))
+  (if (achieve-all goals) 'solved))
 
 ;; A single goal condition can be achieved in two ways. If it is
 ;; already in the current state, the goal is trivially achieved with
@@ -39,6 +39,10 @@
   (or (member goal *state*)
       (some #'apply-op (find-all goal *ops* :test #'appropriate-p))))
 
+(defun achieve-all (goals)
+  "Try to achieve each goal, then make sure they still hold."
+  (and (every #'achieve goals) (subsetp goals *state*)))
+
 ;; An operator is appropriate if one of the effects of the operator is
 ;; to add the goal in question to the current state; in other words,
 ;; if the goal is in the operator's add-list.
@@ -49,7 +53,7 @@
 ;; We can apply an operator if we can achieve all the preconditions.
 (defun apply-op (op)
   "Print a message and update *state* if op is applicable."
-  (when (every #'achieve (op-preconds op))
+  (when (achieve-all (op-preconds op))
     ;; note that we don't print anything before having checked achievability
     (print (list 'executing (op-action op)))
     (setf *state* (set-difference *state* (op-del-list op)))
