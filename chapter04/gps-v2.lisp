@@ -10,6 +10,10 @@
   "Is this a list whose first element is x?"
   (and (consp list) (eql (first list) x)))
 
+;; Since the elements of the add-list are to be added to the state
+;; upon execution of the operator, adding a (executing ...) form to
+;; the add-list make this (executing ...) form appear on the list
+;; which represents the state after the application of the operator.
 (defun convert-op (op)
   "Make op conform to the (EXECUTING op) convention."
   (unless (some #'executing-p (op-add-list op))
