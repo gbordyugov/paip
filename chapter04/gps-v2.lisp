@@ -64,3 +64,22 @@
 (defun GPS (state goals &optional (*ops* *ops*))
   "General Problem Solver v2: from state, achieve goals using *ops*."
   (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
+
+(defun achieve-all (state goals goal-stack)
+  "Achieve each goal, and make sure they still hold at the end."
+  (let ((current-state state))
+    (if (and (every #'(lambda (g)
+                        (setf current-state
+                              (achieve current-state g goal-stack)))
+                    goals)
+             (subsetp goals current-state :test #'equal))
+        current-state)))
+
+(defun achieve (state goal goal-stack)
+  "A goal is achieved if it already holds, or if there is an
+   appropriate op for it that is applicable."
+  (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
+  (cond ((member-equal goal state) state)
+        ((member-equal goal goal-stack) nil)
+        (t (some #'(lambda (op) (apply-op state goal op goal-stack))
+                 (find-all goal *ops* :test #'appropriate-p)))))
