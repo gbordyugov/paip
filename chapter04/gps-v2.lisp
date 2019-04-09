@@ -102,3 +102,9 @@
 (defun appropriate-p (goal op)
   "An op is appropriate to a goal if it is in its add-list."
   (member-equal goal (op-add-list op)))
+
+
+(defun use (oplist)
+  "Use oplist as the default list of operators."
+  ;; Return something useful, but not too verbose: the number of operators.
+  (length (setf *ops* oplist)))
