@@ -57,3 +57,10 @@
             :del-list del-list)))
 
 (mapc #'convert-op *school-ops*)
+
+(defvar *ops* nil
+  "A list of available operators.")
+
+(defun GPS (state goals &optional (*ops* *ops*))
+  "General Problem Solver v2: from state, achieve goals using *ops*."
+  (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
