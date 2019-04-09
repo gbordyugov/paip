@@ -83,3 +83,6 @@
         ((member-equal goal goal-stack) nil)
         (t (some #'(lambda (op) (apply-op state goal op goal-stack))
                  (find-all goal *ops* :test #'appropriate-p)))))
+
+(defun member-equal (item list)
+  (member item list :test #'equal))
