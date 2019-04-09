@@ -86,3 +86,19 @@
 
 (defun member-equal (item list)
   (member item list :test #'equal))
+
+(defun apply-op (state goal op goal-stack)
+  "Return a new, transformed state if op is applicable."
+  (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
+  (let ((state2 (achieve-all state (op-preconds op)
+                             (cons goal goal-stack))))
+    (unless (null state2)
+      (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
+      (append (remove-if #'(lambda (x)
+                             (member-equal x (op-del-list op)))
+                         state2)
+              (op-add-list op)))))
+
+(defun appropriate-p (goal op)
+  "An op is appropriate to a goal if it is in its add-list."
+  (member-equal goal (op-add-list op)))
