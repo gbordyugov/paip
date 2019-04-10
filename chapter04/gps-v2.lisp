@@ -2,6 +2,37 @@
 ;; Chapter 4.11 GPS Version 2: A More General Problem solver
 ;;
 
+;;
+;; Debugging infrastructure.
+;;
+(defvar *dbg-ids* nil "Identifiers used by dbg")
+
+(defun dbg (id format-string &rest args)
+  "Print debugging info if (DEBUG-NORVIG ID) has been specified."
+  (when (member id *dbg-ids*)
+    (fresh-line *debug-io*)
+    (apply #'format *debug-io* format-string args)))
+
+(defun debug-norvig (&rest ids)
+  "Start dbg output on the given ids."
+  (setf *dbg-ids* (union ids *dbg-ids*)))
+
+(defun undebug-norvig (&rest ids)
+  "Stop dbg on the ids. With no ids, stop dbg altogether."
+  (setf *dbg-ids* (if (null ids)
+                      nil
+                      (set-difference *dbg-ids* ids))))
+
+(defun dbg-indent (id indent format-string &rest args)
+  "Print indented debugging info if (debug-norvig ID) has been specified."
+  (when (member id *dbg-ids*)
+    (fresh-line *debug-io*)
+    (dotimes (i indent) (princ " " *debug-io*))
+    (apply #'format *debug-io* format-string args)))
+
+;;
+;; Operations.
+;;
 (defstruct op "An operation"
            (action nil)
            (preconds nil)
@@ -74,7 +105,7 @@
 (defun achieve (state goal goal-stack)
   "A goal is achieved if it already holds, or if there is an
    appropriate op for it that is applicable."
-  ;; (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
+  (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
   (cond ((member-equal goal state) state)
         ((member-equal goal goal-stack) nil)
         (t (some #'(lambda (op) (apply-op state goal op goal-stack))
@@ -88,11 +119,11 @@
 
 (defun apply-op (state goal op goal-stack)
   "Return a new, transformed state if op is applicable."
-  ;; (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
+  (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
   (let ((state2 (achieve-all state (op-preconds op)
                              (cons goal goal-stack))))
     (unless (null state2)
-      ;; (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
+      (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
       (append (remove-if #'(lambda (x)
                              (member-equal x (op-del-list op)))
                          state2)
@@ -124,3 +155,5 @@
 
 (gps '(son-at-home car-needs-battery have-money have-phone-book)
      '(son-at-school))
+
+(debug-norvig :gps)
