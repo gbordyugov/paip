@@ -137,7 +137,7 @@
 ;; 4.10 The Lack of Intermediate Information Problem
 ;;
 
-(defvar *dgb-ids* nil "Identifiers used by dbg")
+(defvar *dbg-ids* nil "Identifiers used by dbg")
 
 (defun dbg (id format-string &rest args)
   "Print debugging info if (DEBUG-NORVIG ID) has been specified."
