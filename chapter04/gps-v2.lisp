@@ -79,7 +79,9 @@
         ((member-equal goal goal-stack) nil)
         (t (some #'(lambda (op) (apply-op state goal op goal-stack))
                  ;; (find-all goal *ops* :test #'appropriate-p)))))
-                 (remove-if goal *ops* :test #'appropriate-p)))))
+                 (remove goal *ops*
+                         :test #'(lambda (goal op)
+                                   (not (appropriate-p goal op))))))))
 
 (defun member-equal (item list)
   (member item list :test #'equal))
@@ -100,7 +102,6 @@
   "An op is appropriate to a goal if it is in its add-list."
   (member-equal goal (op-add-list op)))
 
-
 (defun use (oplist)
   "Use oplist as the default list of operators."
   ;; Return something useful, but not too verbose: the number of operators.
@@ -118,3 +119,8 @@
                                                  goals nil))))
       (setf *ops* old-ops)
       result)))
+
+(use *school-ops*)
+
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(son-at-school))
