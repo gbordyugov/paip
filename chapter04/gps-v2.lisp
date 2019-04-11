@@ -63,6 +63,8 @@
             :add-list '(shop-has-money)
             :del-list '(have-money))))
 
+;; The idea here is to have a list of the form (executing operator) on
+;; add-list of operators, see convert-op below.
 (defun executing-p (x)
   "Is x of the form: (executing ...)?"
   (starts-with x 'executing))
