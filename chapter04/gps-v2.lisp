@@ -142,16 +142,21 @@
 
 (defun GPS (state goals &optional (*ops* *ops*))
   "General Problem Solver v2: from state, achieve goals using *ops*."
-  (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
+  (remove-if #'not-action-p (achieve-all (cons '(start) state) goals nil)))
 
-(defun GPS (state goals &optional (ops *ops*))
-  "General Problem Solver: from state, achieve goals using ops."
-  (let ((old-ops *ops*))
-    (setf *ops* ops)
-    (let ((result (remove-if #'atom (achieve-all (cons '(start) state)
-                                                 goals nil))))
-      (setf *ops* old-ops)
-      result)))
+(defun not-action-p (x)
+  "Is x not something that is (start) or (executing ...)?"
+  (not (or (equal x '(start))
+           (executing-p x))))
+
+;; (defun GPS (state goals &optional (ops *ops*))
+;;   "General Problem Solver: from state, achieve goals using ops."
+;;   (let ((old-ops *ops*))
+;;     (setf *ops* ops)
+;;     (let ((result (remove-if #'atom (achieve-all (cons '(start) state)
+;;                                                  goals nil))))
+;;       (setf *ops* old-ops)
+;;       result)))
 
 (use *school-ops*)
 
