@@ -254,3 +254,20 @@
 (use *maze-ops*)
 
 (gps '((at 1)) '((at 25)))
+
+(defun find-path (start end)
+  "Search a maze for a path from start to end."
+  (let ((results (GPS `((at ,start)) `((at ,end)))))
+    (unless (null results)
+      (cons start (mapcar #'destination
+                          (remove '(start) results :test #'equal))))))
+
+(defun destination (action)
+  "Find the Y in (executing (move from X to Y))."
+  (fifth (second action)))
+
+(find-path 1 25)
+
+(find-path 1 1)
+
+(equal (find-path 1 25) (reverse (find-path 25 1)))
