@@ -159,3 +159,22 @@
      '(son-at-school))
 
 (debug-norvig :gps)
+
+(undebug-norvig)
+
+;; An easy one.
+(gps '(son-at-home car-works)
+     '(son-at-school))
+
+;; Three cases that GPS v1 got wrong
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(have-money son-at-school))
+
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(son-at-school have-money))
+
+(gps '(son-at-home car-needs-battery have-money)
+     '(son-at-school))
+
+;; A trivial one.
+(gps '(son-at-home) '(son-at-home))
