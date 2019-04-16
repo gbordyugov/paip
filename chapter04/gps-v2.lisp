@@ -107,6 +107,7 @@
 (defun achieve (state goal goal-stack)
   "A goal is achieved if it already holds, or if there is an
    appropriate op for it that is applicable."
+  ;; (length goal-stack) is used as the amount of indent
   (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
   (cond ((member-equal goal state) state)
         ((member-equal goal goal-stack) nil)
