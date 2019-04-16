@@ -126,7 +126,9 @@
 
 (defun apply-op (state goal op goal-stack)
   "Return a new, transformed state if op is applicable."
+  ;; (length goal-stack) is used as the amount of indent.
   (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
+  ;; Extend goal stack by the current goal.
   (let ((state2 (achieve-all state (op-preconds op)
                              (cons goal goal-stack))))
     (unless (null state2)
