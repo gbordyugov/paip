@@ -360,3 +360,8 @@
 (gps '((c on a) (a on table) (b on table) (space on c) (space on b)
        (space on table))
      '((c on table)))
+
+;; Takes four steps what can be done in two.
+(gps '((c on a) (a on table) (b on table)
+       (space on c) (space on b) (space on table))
+     '((c on table) (a on b)))
