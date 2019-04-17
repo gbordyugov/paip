@@ -104,6 +104,11 @@
              (subsetp goals current-state :test #'equal))
         current-state)))
 
+;; The new version that users achieve-each
+(defun achieve-all (state goals goal-stack)
+  (some #'(lambda (goals) (achieve-each state goals goal-stack))
+        (orderings goals)))
+
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal, and make sure they still hold at the end."
   (let ((current-state state))
@@ -343,7 +348,9 @@
 (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
      '((b on a) (c on b)))
 
-;; But this one doesn't. It recognises the clobbering, but doesn't
-;; know what to do about it.
+;; But this one doesn't, at least, with the first version of GPS v2.
+;; It recognises the clobbering, but doesn't know what to do about it.
+;; Introducing a new version of achieve-all (with achieve-each) solves
+;; the problem.
 (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
      '((c on b) (b on a)))
