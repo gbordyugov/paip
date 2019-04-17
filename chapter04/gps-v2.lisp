@@ -318,3 +318,14 @@
      '((b on a)))
 
 (undebug-norvig)
+
+(use (make-block-ops '(a b c)))
+
+;; This one works.
+(gps '((a on b) (b on c) (c on table) (space on a) (space on table))
+     '((b on a) (c on b)))
+
+;; But this one doesn't. It recognises the clobbering, but doesn't
+;; know what to do about it.
+(gps '((a on b) (b on c) (c on table) (space on a) (space on table))
+     '((c on b) (b on a)))
