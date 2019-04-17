@@ -104,6 +104,16 @@
              (subsetp goals current-state :test #'equal))
         current-state)))
 
+(defun achieve-each (state goals goal-stack)
+  "Achieve each goal, and make sure they still hold at the end."
+  (let ((current-state state))
+    (if (and (every #'(lambda (g)
+                        (setf current-state
+                              (achieve current-state g goal-stack)))
+                    goals)
+             (subsetp goals current-state :test #'equal))
+        current-state)))
+
 ;; Attempt to achieve goal from stack. Goal-stack represents the stack
 ;; of goals that we're working on. It is used to prevent the recursive
 ;; sub-goal problem.
