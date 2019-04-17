@@ -354,3 +354,9 @@
 ;; the problem.
 (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
      '((c on b) (b on a)))
+
+
+;; A simple case with an overly complicated solution.
+(gps '((c on a) (a on table) (b on table) (space on c) (space on b)
+       (space on table))
+     '((c on table)))
