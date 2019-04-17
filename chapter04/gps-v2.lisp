@@ -114,6 +114,14 @@
              (subsetp goals current-state :test #'equal))
         current-state)))
 
+(defun orderings (l)
+  "For a list with one element, returns a list, consisting of the
+   original list. For a list with more than one element, return a list
+   consisting of the original list and its reverse."
+  (if (> (length l) 1)
+      (list l (reverse l))
+      (list l)))
+
 ;; Attempt to achieve goal from stack. Goal-stack represents the stack
 ;; of goals that we're working on. It is used to prevent the recursive
 ;; sub-goal problem.
