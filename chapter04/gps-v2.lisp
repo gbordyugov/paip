@@ -395,3 +395,11 @@
 
 (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
      '((c on b) (b on a)))
+
+;; The Sussman Anomaly
+
+(setf start '((c on a) (a on table) (b on table) (space on c)
+              (space on b) (space on table)))
+
+(gps start '((a on b) (b on c)))
+(gps start '((b on c) (a on b)))
