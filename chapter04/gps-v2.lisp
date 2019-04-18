@@ -144,6 +144,29 @@
                          :test #'(lambda (goal op)
                                    (not (appropriate-p goal op))))))))
 
+;; A new version that first tries operators with all preconditions
+;; fulfilled.
+(defun achieve (state goal goal-stack)
+  "A Goal is achieved if it already holds, or if there is an
+   appropriate op for it that is applicable."
+  (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
+  (cond ((member-equal goal state) state)
+        ;; Recursive subgoal, bail out immediately.
+        ((member-equal goal goal-stack) nil)
+        (t (some #'(lambda (op) (apply-op state goal op goal-stack))
+                 (appropriate-ops goal state)))))
+
+(defun appropriate-ops (goal state)
+  "Return a list of appropriate operators, sorted by the number of
+   unfulfilled preconditions."
+  (let ((ops (remove goal *ops*
+                     :test #'(lambda (goal op)
+                               (not (appropriate-p goal op))))))
+    (sort (copy-list ops) #'< :key #'(lambda (op)
+                                       (count-if #'(lambda (precond)
+                                                     (not (member-equal precond state)))
+                                                 (op-preconds op))))))
+
 (defun member-equal (item list)
   (member item list :test #'equal))
 
@@ -361,7 +384,8 @@
        (space on table))
      '((c on table)))
 
-;; Takes four steps what can be done in two.
+;; Takes four steps what can be done in two (before the
+;; appropriate-ops hack).
 (gps '((c on a) (a on table) (b on table)
        (space on c) (space on b) (space on table))
      '((c on table) (a on b)))
