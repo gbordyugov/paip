@@ -389,3 +389,9 @@
 (gps '((c on a) (a on table) (b on table)
        (space on c) (space on b) (space on table))
      '((c on table) (a on b)))
+
+(gps '((a on b) (b on c) (c on table) (space on a) (space on table))
+     '((b on a) (c on b)))
+
+(gps '((a on b) (b on c) (c on table) (space on a) (space on table))
+     '((c on b) (b on a)))
