@@ -407,3 +407,7 @@
 ;;
 ;; Exercise 4.1
 ;;
+(defun dbg-exercise-4-1 (id format-string &rest args)
+  "Print debugging info if (DEBUG-NORVIG ID) has been specified."
+  (let ((fmt-string (concatenate 'string "~@[" format-string "~]")))
+    (format *debug-io* fmt-string (when (member id *dbg-ids*) args))))
