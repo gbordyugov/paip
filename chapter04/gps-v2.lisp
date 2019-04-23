@@ -403,3 +403,7 @@
 
 (gps start '((a on b) (b on c)))
 (gps start '((b on c) (a on b)))
+
+;;
+;; Exercise 4.1
+;;
