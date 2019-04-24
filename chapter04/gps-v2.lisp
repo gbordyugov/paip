@@ -411,3 +411,12 @@
   "Print debugging info if (DEBUG-NORVIG ID) has been specified."
   (let ((fmt-string (concatenate 'string "~@[" format-string "~]")))
     (format *debug-io* fmt-string (when (member id *dbg-ids*) args))))
+
+;;
+;; Exercise 4.2
+;;
+(defun permutations (items)
+  (cond
+    ((<= (length items) 1) items)
+    (t (let* ((ele (first items))
+              (rst (rest items)))
