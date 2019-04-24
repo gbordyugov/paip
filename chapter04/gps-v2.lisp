@@ -442,3 +442,26 @@
                   (let ((rest-perms (better-permutations (remove e items))))
                     (mapcar #'(lambda (perm) (cons e perm)) rest-perms)))
               items)))
+
+
+;;
+;; Exercise 4.3
+;;
+(defparameter *exercise-4-3-ops*
+  (list
+   (make-op :action 'eat-ice-cream
+            :preconds '(have-ice-cream)
+            :add-list '(ice-cream-eaten)
+            :del-list '(have-ice-cream))
+   (make-op :action 'eat-cake
+            :preconds '(have-cake)
+            :add-list '(have-ice-cream cake-eaten)
+            :del-list '(have-cake))
+   (make-op :action 'buy-cake
+            :preconds '(have-money)
+            :add-list '(have-cake)
+            :del-list '(have-money))))
+
+(use *exercise-4-3-ops*)
+
+(gps '(have-money) '(ice-cream-eaten cake-eaten))
