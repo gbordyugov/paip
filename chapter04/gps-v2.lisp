@@ -455,7 +455,7 @@
             :del-list '(have-ice-cream))
    (make-op :action 'eat-cake
             :preconds '(have-cake)
-            :add-list '(have-ice-cream cake-eaten)
+            :add-list '(cake-eaten have-ice-cream)
             :del-list '(have-cake))
    (make-op :action 'buy-cake
             :preconds '(have-money)
@@ -464,4 +464,6 @@
 
 (use *exercise-4-3-ops*)
 
-(gps '(have-money) '(ice-cream-eaten cake-eaten))
+(debug-norvig :gps)
+
+(gps '(have-money) '(cake-eaten))
