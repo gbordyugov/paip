@@ -433,3 +433,12 @@
               (rst (rest items)))
          (mappend #'(lambda (p)
                       (interleaves ele p)) (permutations rst))))))
+
+(defun better-permutations (items)
+  "Return all permutations of items. For simplicity, works only for sets."
+  (if (<= (length items) 1)
+      (list items)
+      (mappend #'(lambda (e)
+                  (let ((rest-perms (better-permutations (remove e items))))
+                    (mapcar #'(lambda (perm) (cons e perm)) rest-perms)))
+              items)))
