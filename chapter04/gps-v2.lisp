@@ -415,8 +415,21 @@
 ;;
 ;; Exercise 4.2
 ;;
+(defun interleaves (ele items)
+  "Returns all lists consisting of items with ele added in between
+   elements, including the zeroth and the last position."
+  (let ((insert (list ele)))
+    (loop
+       for i from 0 to (length items)
+       collect (let ((head (subseq items 0 i))
+                     (tail (subseq items i)))
+                 (concatenate 'list head insert tail)))))
+
 (defun permutations (items)
+  "Returns all permutations of items."
   (cond
-    ((<= (length items) 1) items)
+    ((<= (length items) 1) (list items))
     (t (let* ((ele (first items))
               (rst (rest items)))
+         (mappend #'(lambda (p)
+                      (interleaves ele p)) (permutations rst))))))
