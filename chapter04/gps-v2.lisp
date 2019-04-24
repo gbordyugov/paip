@@ -416,7 +416,7 @@
 ;; Exercise 4.2
 ;;
 (defun interleaves (ele items)
-  "Returns all lists consisting of items with ele added in between
+  "Return all lists consisting of items with ele added in between
    elements, including the zeroth and the last position."
   (let ((insert (list ele)))
     (loop
@@ -426,7 +426,7 @@
                  (concatenate 'list head insert tail)))))
 
 (defun permutations (items)
-  "Returns all permutations of items."
+  "Return all permutations of items."
   (cond
     ((<= (length items) 1) (list items))
     (t (let* ((ele (first items))
