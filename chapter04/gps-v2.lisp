@@ -455,15 +455,18 @@
             :del-list '(have-ice-cream))
    (make-op :action 'eat-cake
             :preconds '(have-cake)
-            :add-list '(cake-eaten have-ice-cream)
+            :add-list '(have-ice-cream cake-eaten)
             :del-list '(have-cake))
    (make-op :action 'buy-cake
             :preconds '(have-money)
             :add-list '(have-cake)
             :del-list '(have-money))))
 
+(mapc #'convert-op *exercise-4-3-ops*)
+
 (use *exercise-4-3-ops*)
 
 (debug-norvig :gps)
 
-(gps '(have-money) '(cake-eaten))
+;; Seems to be working correctly as is, consider it as done.
+(gps '(have-money) '(cake-eaten ice-cream-eaten))
