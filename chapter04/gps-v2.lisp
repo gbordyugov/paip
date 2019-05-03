@@ -147,7 +147,7 @@
 ;; A new version that first tries operators with all preconditions
 ;; fulfilled.
 (defun achieve (state goal goal-stack)
-  "A Goal is achieved if it already holds, or if there is an
+  "A goal is achieved if it already holds, or if there is an
    appropriate op for it that is applicable."
   (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
   (cond ((member-equal goal state) state)
