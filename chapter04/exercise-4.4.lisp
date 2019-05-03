@@ -32,6 +32,9 @@
             :add-list '(shop-has-money)
             :del-list '(have-money))))
 
+;;
+;; This is only the bookkeeping for ops in new and old format
+;;
 (defun executing-p (x)
   "Is x of the form: (executing ...)?"
   (starts-with x 'executing))
@@ -54,9 +57,9 @@
 
 (mapc #'convert-op *school-ops*)
 
-(defvar *ops* nil
-  "A list of available operators.")
-
+;;
+;; Here starts the main logic of the solver.
+;;
 (defun achieve-all (state goals goal-stack)
   (some #'(lambda (goals) (achieve-each state goals goal-stack))
         (orderings goals)))
@@ -128,8 +131,10 @@
 
 (defun not-action-p (x)
   "Is x not something that is (start) or (executing ...)?"
-  (not (or (equal x '(start))
-           (executing-p x))))
+  (not (or (equal x '(start)) (executing-p x))))
+
+(defvar *ops* nil
+  "A list of available operators.")
 
 (use *school-ops*)
 
