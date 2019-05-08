@@ -12,6 +12,19 @@
 ;; the current goal and also `achieve-all` the remaining goals.
 ;;
 
+;;
+;; First off: the not looking before you leep problem: Trying to
+;; achieve one of the goals can block achieving some other goals on
+;; the goal list, i.e. (jump-off-cliff land-safely).
+;;
+;; In the second version of GPS this problem is solved by passing the
+;; current state around and returning an updated state from functions.
+;;
+
+;;
+;; The Not Looking after You Don't Leap Problem.
+;;
+
 (defstruct op "An operation"
            (action nil)
            (preconds nil)
