@@ -171,3 +171,18 @@
 
 (gps '(son-at-home car-needs-battery have-money have-phone-book)
      '(son-at-school))
+
+(use (push (op 'taxi-son-to-school
+               :preconds '(son-at-home have-money)
+               :add-list '(son-at-school)
+               :del-list '(son-at-home have-money))
+           *school-ops*))
+
+;;
+;; This one doesn't work because of the not looking after you don't
+;; leap problem.
+;;
+(debug-norvig :gps)
+
+(gps '(son-at-home have-money car-works)
+     '(son-at-school have-money))
