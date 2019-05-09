@@ -26,11 +26,11 @@
 ;;
 ;; Suppose we're trying to achieve (son-at-school have-money) given
 ;; (son-at-home have-money car-works). Additionally, suppose that we
-;; have an operator that takes the sone to the school by a cab and
-;; consumes money. This operator is the first one on the operator
-;; list. So each time it is applied, we loose money, which contradicts
-;; one of the final goals. We cannot achieve all the goals although
-;; there is a valid solution: Driving son to school ourselves.
+;; have an operator that takes son to the school by a cab and consumes
+;; money. This operator is the first one on the operator list. So each
+;; time it is applied, we loose money, which contradicts one of the
+;; final goals. We cannot achieve all the goals although there is a
+;; valid solution: Driving son to school ourselves.
 ;;
 
 (defstruct op "An operation"
