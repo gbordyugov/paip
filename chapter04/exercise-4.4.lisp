@@ -96,7 +96,9 @@
         (orderings goals)))
 
 (defun achieve-each (state goals goal-stack)
-  "Achieve each goal, and make sure they still hold at the end."
+  "Achieve each goal sequentially, using the output state of achieving
+   one goal as a start state for achieving the next one. Make sure
+   they still hold at the end."
   (let ((current-state state))
     (labels ((local-achieve (g)
                (setf current-state (achieve current-state g goal-stack))))
