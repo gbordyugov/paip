@@ -183,7 +183,7 @@
 ;; This one doesn't work because of the not looking after you don't
 ;; leap problem.
 ;;
-(debug-norvig :gps)
+;; (debug-norvig :gps)
 
 (gps '(son-at-home have-money car-works)
      '(son-at-school have-money))
