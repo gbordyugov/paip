@@ -190,7 +190,8 @@
 
 (defun GPS (state goals &optional (*ops* *ops*))
   "General Problem Solver v2: from state, achieve goals using *ops*."
-  (remove-if #'not-action-p (achieve-all (cons '(start) state) goals nil)))
+  (let ((ini-state (cons '(start) state)))
+    (remove-if #'not-action-p (achieve-all ini-state goals nil))))
 
 (defun not-action-p (x)
   "Is x not something that is (start) or (executing ...)?"
