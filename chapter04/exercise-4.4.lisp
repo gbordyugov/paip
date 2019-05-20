@@ -142,6 +142,7 @@
     (labels ((local-achieve (g)
                (setf current-state (achieve current-state g goal-stack))))
       (if (and (every #'local-achieve goals)
+               ;; make sure that all target goals still hold
                (subsetp goals current-state :test #'equal))
           current-state))))
 
