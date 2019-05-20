@@ -201,7 +201,7 @@
 
 (use *school-ops*)
 
-(gps '(son-at-home car-needs-battery have-money have-phone-book)
+(GPS '(son-at-home car-needs-battery have-money have-phone-book)
      '(son-at-school))
 
 (use (push (op 'taxi-son-to-school
@@ -216,5 +216,5 @@
 ;;
 (debug-norvig :gps)
 
-(gps '(son-at-home have-money car-works)
+(GPS '(son-at-home have-money car-works)
      '(son-at-school have-money))
