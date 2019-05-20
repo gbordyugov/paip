@@ -81,6 +81,13 @@
       (push execute-statement (op-add-list op))))
   op)
 
+(when '()
+  (let ((example-op (make-op :action 'give-shop-money
+                             :preconds '(have-money)
+                             :add-list '(shop-has-money)
+                             :del-list '(have-money))))
+    (convert-op example-op)))
+
 (defun op (action &key preconds add-list del-list)
   "Make a new operator that obeys the (EXECUTING op) convention."
   (convert-op
