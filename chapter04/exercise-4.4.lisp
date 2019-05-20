@@ -197,9 +197,14 @@
   (length (setf *ops* oplist)))
 
 (defun GPS (state goals &optional (*ops* *ops*))
-  "General Problem Solver v2: from state, achieve goals using *ops*."
-  (let ((ini-state (cons '(start) state)))
-    (remove-if #'not-action-p (achieve-all ini-state goals nil))))
+  "General Problem Solver v2: from state, achieve goals using *ops*. What it
+   basically does is extending the initial state by adding '(start) to it and
+   delegating the job to `achieve-all` with the extended initial state. After that,
+   it removes from the end state everyting which is not either '(state) or
+   '(executing smth.)"
+  (let* ((ini-state (cons '(start) state))
+         (end-state (achieve-all ini-state goals nil)))
+    (remove-if #'not-action-p end-state)))
 
 (defun not-action-p (x)
   "Is x not something that is (start) or (executing ...)?"
