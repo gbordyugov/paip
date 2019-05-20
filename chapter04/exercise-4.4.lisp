@@ -77,7 +77,8 @@
 (defun convert-op (op)
   "Make op conform to the (EXECUTING op) convention."
   (unless (some #'executing-p (op-add-list op))
-    (push (list 'executing (op-action op)) (op-add-list op)))
+    (let ((execute-statement (list 'executing (op-action op))))
+      (push execute-statement (op-add-list op))))
   op)
 
 (defun op (action &key preconds add-list del-list)
