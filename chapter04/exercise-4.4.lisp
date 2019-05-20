@@ -128,8 +128,11 @@
 ;; Here starts the main logic of the solver.
 ;;
 (defun achieve-all (state goals goal-stack)
-  (some #'(lambda (goals) (achieve-each state goals goal-stack))
-        (orderings goals)))
+  "Attempts to achieve some permutations of goals (see `orderings`)"
+  (let ((permutations (orderings goals)))
+    (labels ((achieve-local (goals)
+               (achieve-each state goals goal-stack)))
+      (some #'achieve-local permutations))))
 
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
