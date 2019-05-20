@@ -129,10 +129,10 @@
 ;;
 (defun achieve-all (state goals goal-stack)
   "Attempts to achieve some permutations of goals (see `orderings`)"
-  (let ((permutations (orderings goals)))
+  (let ((goals-permutations (orderings goals)))
     (labels ((achieve-local (goals)
                (achieve-each state goals goal-stack)))
-      (some #'achieve-local permutations))))
+      (some #'achieve-local goals-permutations))))
 
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
