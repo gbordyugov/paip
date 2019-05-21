@@ -127,12 +127,28 @@
 ;;
 ;; Here starts the main logic of the solver.
 ;;
+
+;;
+;; The chain of calls:
+;;
+;; achieve-all -> achieve-each -> achieve
+;;
 (defun achieve-all (state goals goal-stack)
-  "Attempts to achieve some permutations of goals (see `orderings`)"
+  "The main entry point, called from GPS. Generate some permutations
+   of goals (see `orderings` below) and tries to achieve some of those
+   permutations."
   (let ((goals-permutations (orderings goals)))
-    (labels ((achieve-local (goals)
+    (labels ((local-achieve (goals)
                (achieve-each state goals goal-stack)))
-      (some #'achieve-local goals-permutations))))
+      (some #'local-achieve goals-permutations))))
+
+(defun orderings (l)
+  "For a list with one element, returns a list, consisting of the
+   original list. For a list with more than one element, return a list
+   consisting of the original list and its reverse."
+  (if (> (length l) 1)
+      (list l (reverse l))
+      (list l)))
 
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
@@ -145,14 +161,6 @@
                ;; make sure that all target goals still hold
                (subsetp goals current-state :test #'equal))
           current-state))))
-
-(defun orderings (l)
-  "For a list with one element, returns a list, consisting of the
-   original list. For a list with more than one element, return a list
-   consisting of the original list and its reverse."
-  (if (> (length l) 1)
-      (list l (reverse l))
-      (list l)))
 
 (defun achieve (state goal goal-stack)
   "A goal is achieved if it already holds, or if there is an
