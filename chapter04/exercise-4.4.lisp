@@ -175,13 +175,14 @@
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
    unfulfilled preconditions."
-  (let ((ops (remove goal *ops*
-                     :test #'(lambda (goal op)
-                               (not (appropriate-p goal op))))))
-    (sort (copy-list ops) #'< :key #'(lambda (op)
-                                       (count-if #'(lambda (precond)
-                                                     (not (member-equal precond state)))
-                                                 (op-preconds op))))))
+  (labels ((not-appropriate-p (goal op)
+             (not (appropriate-p goal op)))
+           (precond-unfulfilled-p (precond)
+             (not (member-equal precond state)))
+           (number-of-unfulfilled-preconds (op)
+             (count-if #'precond-unfulfilled-p (op-preconds op))))
+    (let ((ops (remove goal *ops* :test #'not-appropriate-p)))
+      (sort (copy-list ops) #'< :key #'number-of-unfulfilled-preconds))))
 
 (defun member-equal (item list)
   (member item list :test #'equal))
