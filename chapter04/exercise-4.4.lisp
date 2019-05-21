@@ -175,7 +175,9 @@
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
    unfulfilled preconditions."
-  (labels ((not-appropriate-p (goal op)
+  (labels ((appropriate-p (goal op)
+             (member-equal goal (op-add-list op)))
+           (not-appropriate-p (goal op)
              (not (appropriate-p goal op)))
            (precond-unfulfilled-p (precond)
              (not (member-equal precond state)))
@@ -199,10 +201,6 @@
                              (member-equal x (op-del-list op)))
                          state2)
               (op-add-list op)))))
-
-(defun appropriate-p (goal op)
-  "An op is appropriate to a goal if it is in its add-list."
-  (member-equal goal (op-add-list op)))
 
 (defun use (oplist)
   "Use oplist as the default list of operators."
