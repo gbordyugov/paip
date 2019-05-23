@@ -169,9 +169,9 @@
   (cond ((member-equal goal state) state)
         ;; Recursive subgoal, bail out immediately.
         ((member-equal goal goal-stack) nil)
-        (t (labels ((what? (op)
+        (t (labels ((local-apply-op (op)
                       (apply-op state goal op goal-stack)))
-             (some #'what? (appropriate-ops goal state))))))
+             (some #'local-apply-op (appropriate-ops goal state))))))
 
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
