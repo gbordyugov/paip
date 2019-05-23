@@ -169,8 +169,9 @@
   (cond ((member-equal goal state) state)
         ;; Recursive subgoal, bail out immediately.
         ((member-equal goal goal-stack) nil)
-        (t (some #'(lambda (op) (apply-op state goal op goal-stack))
-                 (appropriate-ops goal state)))))
+        (t (labels ((what? (op)
+                      (apply-op state goal op goal-stack)))
+             (some #'what? (appropriate-ops goal state))))))
 
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
@@ -187,6 +188,7 @@
       (sort (copy-list ops) #'< :key #'number-of-unfulfilled-preconds))))
 
 (defun member-equal (item list)
+  "Check if item is in list using `equal` as comparison."
   (member item list :test #'equal))
 
 (defun apply-op (state goal op goal-stack)
