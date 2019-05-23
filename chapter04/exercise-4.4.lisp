@@ -139,16 +139,13 @@
    permutations."
   (let ((goals-permutations (orderings goals)))
     (labels ((local-achieve (goals)
-               (achieve-each state goals goal-stack)))
+               (achieve-each state goals goal-stack))
+             (orderings (l)
+               (if (> (length l) 1)
+                   (list l (reverse l))
+                   (list l))))
       (some #'local-achieve goals-permutations))))
 
-(defun orderings (l)
-  "For a list with one element, returns a list, consisting of the
-   original list. For a list with more than one element, return a list
-   consisting of the original list and its reverse."
-  (if (> (length l) 1)
-      (list l (reverse l))
-      (list l)))
 
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
