@@ -131,7 +131,7 @@
 ;;
 ;; The chain of calls:
 ;;
-;; achieve-all -> achieve-each -> achieve
+;; achieve-all -> achieve-each -> achieve -> apply-op
 ;;
 (defun achieve-all (state goals goal-stack)
   "The main entry point, called from GPS. Generate some permutations
@@ -199,14 +199,14 @@
   "Return a new, transformed state if op is applicable."
   (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
   ;; Extend goal stack by the current goal.
-  (let ((state2 (achieve-all state (op-preconds op)
-                             (cons goal goal-stack))))
+  (let* ((extended-goal-stack (cons goal goal-stack))
+         (state2 (achieve-all state (op-preconds op) extended-goal-stack)))
     (unless (null state2)
       (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
-      (append (remove-if #'(lambda (x)
-                             (member-equal x (op-del-list op)))
-                         state2)
-              (op-add-list op)))))
+      (labels ((is-in-del-list (x)
+                 (member-equal x (op-del-list op))))
+        (append (remove-if #'is-in-del-list state2)
+                (op-add-list op))))))
 
 (defun use (oplist)
   "Use oplist as the default list of operators."
@@ -233,6 +233,9 @@
 (use *school-ops*)
 
 (GPS '(son-at-home car-needs-battery have-money have-phone-book)
+     '(son-at-school))
+
+(GPS '(son-at-home have-money have-phone-book car-needs-battery)
      '(son-at-school))
 
 (use (push (op 'taxi-son-to-school
