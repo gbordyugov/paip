@@ -171,6 +171,7 @@
         ((member-equal goal goal-stack) nil)
         (t (labels ((local-apply-op (op)
                       (apply-op state goal op goal-stack)))
+             ;; `some` returns the first non-nil result of apply the func
              (some #'local-apply-op (appropriate-ops goal state))))))
 
 (defun appropriate-ops (goal state)
