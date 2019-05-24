@@ -177,10 +177,8 @@
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
    unfulfilled preconditions."
-  (labels ((appropriate-p (goal op)
-             (member-equal goal (op-add-list op)))
-           (not-appropriate-p (goal op)
-             (not (appropriate-p goal op)))
+  (labels ((not-appropriate-p (goal op)
+             (not (member-equal goal (op-add-list op))))
            (precond-unfulfilled-p (precond)
              (not (member-equal precond state)))
            (number-of-unfulfilled-preconds (op)
