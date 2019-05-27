@@ -170,11 +170,12 @@
         ((member-equal goal goal-stack) nil)
         (t (labels ((local-apply-op (op)
                       (apply-op state goal op goal-stack)))
-             ;; `some` returns the first non-nil result of apply the
-             ;; func. The list of appropriate ops is sorted by the
-             ;; number of unfulfilled conditions in an ascending
-             ;; order (heuristics!).
-             (some #'local-apply-op (appropriate-ops goal state))))))
+             (let ((ops-to-consider (appropriate-ops goal state)))
+               ;; `some` returns the first non-nil result of apply the
+               ;; func. The list of appropriate ops is sorted by the
+               ;; number of unfulfilled conditions in an ascending
+               ;; order (heuristics!).
+               (some #'local-apply-op ops-to-consider))))))
 
 (defun appropriate-ops (goal state)
   "Return a list of appropriate operators, sorted by the number of
