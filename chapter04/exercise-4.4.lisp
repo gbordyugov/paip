@@ -136,7 +136,9 @@
 (defun achieve-all (state goals goal-stack)
   "The main entry point, called from GPS. Generate some permutations
    of goals (see `orderings` below) and tries to achieve some of those
-   permutations."
+   permutations.
+   goal-stack represents a stack of goals that are being worked on.
+   Function achieve uses it to check for infinite loops."
   (let ((goals-permutations (orderings goals)))
     (labels ((local-achieve (goals)
                (achieve-each state goals goal-stack))
