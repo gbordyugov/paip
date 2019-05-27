@@ -149,6 +149,9 @@
       (some #'local-achieve goals-permutations))))
 
 
+;;
+;; This function used to be called just `achieve` in the code of the book.
+;;
 (defun achieve-each (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
    one goal as a start state for achieving the next one. Make sure
