@@ -139,13 +139,13 @@
    permutations.
    goal-stack represents a stack of goals that are being worked on.
    Function achieve uses it to check for infinite loops."
-  (let ((goals-permutations (orderings goals)))
-    (labels ((local-achieve (goals)
-               (achieve-each state goals goal-stack))
-             (orderings (l)
-               (if (> (length l) 1)
-                   (list l (reverse l))
-                   (list l))))
+  (labels ((local-achieve (goals)
+             (achieve-each state goals goal-stack))
+           (orderings (l)
+             (if (> (length l) 1)
+                 (list l (reverse l))
+                 (list l))))
+    (let ((goals-permutations (orderings goals)))
       (some #'local-achieve goals-permutations))))
 
 
