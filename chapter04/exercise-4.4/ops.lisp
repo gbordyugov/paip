@@ -34,3 +34,11 @@
   (convert-op
    (make-op :action action :preconds preconds :add-list add-list
             :del-list del-list)))
+
+(defvar *ops* nil
+  "A list of available operators.")
+
+(defun use (oplist)
+  "Use oplist as the default list of operators."
+  ;; Return something useful, but not too verbose: the number of operators.
+  (length (setf *ops* oplist)))

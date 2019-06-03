@@ -41,14 +41,6 @@
 
 (load "solver.lisp")
 
-(defvar *ops* nil
-  "A list of available operators.")
-
-(defun use (oplist)
-  "Use oplist as the default list of operators."
-  ;; Return something useful, but not too verbose: the number of operators.
-  (length (setf *ops* oplist)))
-
 (use *school-ops*)
 
 (GPS '(son-at-home car-needs-battery have-money have-phone-book)
