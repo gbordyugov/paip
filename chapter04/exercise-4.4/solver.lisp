@@ -72,7 +72,7 @@
   ;; Extend goal stack by the current goal.
   (let* ((extended-goal-stack (cons goal goal-stack))
          (state2 (achieve-all state (op-preconds op) extended-goal-stack)))
-    (unless (null state2)
+    (when state2
       (dbg-indent :gps (length goal-stack) "Action: ~a" (op-action op))
       (labels ((is-in-del-list (x)
                  (member-equal x (op-del-list op))))
