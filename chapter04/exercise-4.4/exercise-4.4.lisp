@@ -43,10 +43,10 @@
 
 (use *school-ops*)
 
+;;
+;; The standard problem.
+;;
 (GPS '(son-at-home car-needs-battery have-money have-phone-book)
-     '(son-at-school))
-
-(GPS '(son-at-home have-money have-phone-book car-needs-battery)
      '(son-at-school))
 
 (use (push (op 'taxi-son-to-school
