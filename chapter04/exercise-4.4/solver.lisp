@@ -85,10 +85,9 @@
    delegating the job to `achieve-all` with the extended initial state. After that,
    it removes from the end state everyting which is not either '(state) or
    '(executing smth.)"
-  (let* ((ini-state (cons '(start) state))
-         (end-state (achieve-all ini-state goals nil)))
-    (remove-if #'not-action-p end-state)))
-
-(defun not-action-p (x)
-  "Is x not something that is (start) or (executing ...)?"
-  (not (or (equal x '(start)) (executing-p x))))
+  (labels ((not-action-p (x)
+             "Is x not something that is (start) or (executing ...)?"
+             (not (or (equal x '(start)) (executing-p x)))))
+    (let* ((ini-state (cons '(start) state))
+           (end-state (achieve-all ini-state goals nil)))
+      (remove-if #'not-action-p end-state))))
