@@ -28,13 +28,13 @@
    they still hold at the end."
   (let ((current-state state))
     (labels ((local-achieve (g)
-               (setf current-state (achieve-main current-state g goal-stack))))
+               (setf current-state (achieve-main current-state g goal-stack '()))))
       (if (and (every #'local-achieve goals)
                ;; make sure that all target goals still hold
                (subsetp goals current-state :test #'equal))
           current-state))))
 
-(defun achieve-main (state goal goal-stack)
+(defun achieve-main (state goal goal-stack remaining-goals)
   "A goal is achieved if it already holds, or if there is an
    appropriate op for it that is applicable."
   (dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
