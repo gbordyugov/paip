@@ -28,10 +28,6 @@
                       (not (member-equal goal (op-add-list op)))))
              (let ((ops-to-consider
                     (remove goal *ops* :test #'not-appropriate-p)))
-               ;; `some` returns the first non-nil result of apply the
-               ;; func. The list of appropriate ops is sorted by the
-               ;; number of unfulfilled conditions in an ascending
-               ;; order (heuristics!).
                (some #'local-apply-op ops-to-consider))))))
 
 (defun member-equal (item list)

@@ -39,7 +39,7 @@
 
 (load "debug.lisp")
 
-(load "solver-exercise-4.4.lisp")
+(load "solver-v2.lisp")
 
 (use *school-ops*)
 
