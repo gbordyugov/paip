@@ -38,10 +38,6 @@
   "Check if item is in list using `equal` as comparison."
   (member item list :test #'equal))
 
-;;
-;; Continue here
-;;
-
 (defun apply-op (state goal op goal-stack)
   "Return a new, transformed state if op is applicable."
   (dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
