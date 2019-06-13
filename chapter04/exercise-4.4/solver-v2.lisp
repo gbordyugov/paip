@@ -3,12 +3,24 @@
 ;;
 ;; achieve-all -> achieve -> apply-op
 ;;
+(defun achieve-all-new (state goals goal-stack)
+  "Achieve each goal sequentially, using the output state of achieving
+   one goal as a start state for achieving the next one. Make sure
+   they still hold at the end."
+  (labels ((process-one-goal (previous-state goal)
+             (when previous-state
+               (achieve previous-state goal goal-stack))))
+    (let ((end-state (reduce #'process-one goals :initial-value state)))
+      (when (and end-state (subsetp goals current-state :test #'equal))
+        '()))))
+
 (defun achieve-all (state goals goal-stack)
   "Achieve each goal sequentially, using the output state of achieving
    one goal as a start state for achieving the next one. Make sure
    they still hold at the end."
   (let ((current-state state))
     (labels ((local-achieve (g)
+               ;; this returns the value of current-state, too
                (setf current-state (achieve current-state g goal-stack))))
       (if (and (every #'local-achieve goals)
                ;; make sure that all target goals still hold
