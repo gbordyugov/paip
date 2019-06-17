@@ -11,8 +11,9 @@
              ;; fail immediately and propagate failure
              (when previous-state
                (achieve previous-state goal goal-stack))))
-    (let ((end-state (reduce #'process-one-goal goals :initial-value state)))
-      (when (and end-state (subsetp goals end-state :test #'equal))
+    (let* ((end-state (reduce #'process-one-goal goals :initial-value state))
+           (all-satisfied? (subsetp goals end-state :test #'equal)))
+      (when (and end-state all-satisfied?)
         end-state))))
 
 (defun achieve (state goal goal-stack)
