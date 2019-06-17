@@ -55,7 +55,9 @@
    '(executing smth.)"
   (labels ((not-action-p (x)
              "Is x not something that is (start) or (executing ...)?"
-             (not (or (equal x '(start)) (executing-p x)))))
+             (not (or (equal x '(start)) (executing-p x))))
+           (remove-non-actions (items)
+             (remove-if #'not-action-p items)))
     (let* ((ini-state (cons '(start) state))
            (end-state (achieve-all ini-state goals nil)))
-      (remove-if #'not-action-p end-state))))
+      (remove-non-actions end-state))))
