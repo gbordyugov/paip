@@ -15,6 +15,7 @@
       (and end-state and all-goals-reached-p))))
 
 (defun achieve (state goal goal-stack)
+  "Achieve a single goal starting from state."
   (cond ((member-equal goal goal-stack) '())
         ((member-equal goal state) state)
         t))
