@@ -3,6 +3,10 @@
 ;; achieve-all -> achieve -> apply-op
 ;;
 
+;;
+;; A state is a set of goals achieved so far.
+;;
+
 (defun achieve-all (state goals goal-stack)
   "Achieve all goals in sequence, using the state after achieving the
    previous goal as the starting state for achieving the next goal.
@@ -16,9 +20,20 @@
 
 (defun achieve (state goal goal-stack)
   "Achieve a single goal starting from state."
-  (cond ((member-equal goal goal-stack) '())
-        ((member-equal goal state) state)
-        t))
+  (cond
+    ;; Have we considered this goal before?
+    ((member-equal goal goal-stack) '())
+    ;; Is goal already satisfied?
+    ((member-equal goal state) state)
+    ;; Find all opearators that have goal on their add-list.
+    (labels ((local-apply-op (op)
+               t)
+             (not-appropriate-p (goal op)
+               t))
+      (let* ((ops-to-consider
+              (remove goal *ops* :test #'not-appropriate-p)))
+             (some #'local-apply-op ops-to-consider)))))
+
 
 (defun member-equal (item list)
   "Check if item is inlist using `equal` as comparison."
