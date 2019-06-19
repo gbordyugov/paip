@@ -14,8 +14,14 @@
            (all-goals-reached-p (subsetp goals end-state :test #'equal)))
       (and end-state and all-goals-reached-p))))
 
-(defun achieve (state goals goal-stack)
-  t)
+(defun achieve (state goal goal-stack)
+  (cond ((member-equal goal goal-stack) '())
+        ((member-equal goal state) state)
+        t))
+
+(defun member-equal (item list)
+  "Check if item is inlist using `equal` as comparison."
+  (member item list :test #'equal))
 
 (defun apply-op (state op goal-stack)
   t)
