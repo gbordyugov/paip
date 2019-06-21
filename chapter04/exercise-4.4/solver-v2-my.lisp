@@ -40,6 +40,8 @@
   (member item list :test #'equal))
 
 (defun apply-op (state op goal-stack)
+  "In order to apply an operator to state, we first have to fulfil all
+   preconditions of the operator."
   t)
 
 (defun gps (start-state end-state)
