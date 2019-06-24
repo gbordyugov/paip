@@ -43,7 +43,14 @@
   "In order to apply an operator to state, we first have to fulfil all
    preconditions of the operator. We need to pass goal in order to expand
    goal-stack."
-  t)
+  (let* ((extended-goal-stack (cons goal goal-stack))
+         (new-state (achieve-all state (op-preconds op) goal-stack)))
+    (labels ((update state op)
+             ;; add op's add-list and remove del-list goals from state
+             t))
+    (when new-state
+      (update new-state op))))
+
 
 (defun gps (start-state end-state)
   t)
