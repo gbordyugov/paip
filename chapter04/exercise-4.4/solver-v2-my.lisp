@@ -39,9 +39,10 @@
   "Check if item is inlist using `equal` as comparison."
   (member item list :test #'equal))
 
-(defun apply-op (state op goal-stack)
+(defun apply-op (state goal op goal-stack)
   "In order to apply an operator to state, we first have to fulfil all
-   preconditions of the operator."
+   preconditions of the operator. We need to pass goal in order to expand
+   goal-stack."
   t)
 
 (defun gps (start-state end-state)
