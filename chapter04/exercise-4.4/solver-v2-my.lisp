@@ -45,11 +45,15 @@
    goal-stack."
   (let* ((extended-goal-stack (cons goal goal-stack))
          (new-state (achieve-all state (op-preconds op) extended-goal-stack)))
-    (labels ((update state op)
-             ;; add op's add-list and remove del-list goals from state
-             t))
-    (when new-state
-      (update new-state op))))
+    (labels ((update (state op)
+               ;; add op's add-list and remove del-list goals from state
+               (let ((add-list (op-add-list op))
+                     (del-list (op-del-list)))
+                 (labels ((is-in-del-list (x)
+                            (member-equal x del-list)))
+                   (append (remove-if #'is-in-del-list state2) add-list))))
+             (when new-state
+               (update new-state op))))))
 
 
 (defun gps (start-state end-state)
