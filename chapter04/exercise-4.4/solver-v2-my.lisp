@@ -44,7 +44,7 @@
    preconditions of the operator. We need to pass goal in order to expand
    goal-stack."
   (let* ((extended-goal-stack (cons goal goal-stack))
-         (new-state (achieve-all state (op-preconds op) goal-stack)))
+         (new-state (achieve-all state (op-preconds op) extended-goal-stack)))
     (labels ((update state op)
              ;; add op's add-list and remove del-list goals from state
              t))
