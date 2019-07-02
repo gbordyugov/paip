@@ -27,7 +27,7 @@
     ((member-equal goal state) state)
     ;; Find all opearators that have goal on their add-list.
     (labels ((local-apply-op (op)
-               t)
+               (apply-op state goal op goal-stack))
              (not-appropriate-p (goal op)
                (not (member-equal goal (op-add-list op)))))
       (let* ((ops-to-consider
