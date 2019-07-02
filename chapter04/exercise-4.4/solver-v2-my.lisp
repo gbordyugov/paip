@@ -29,7 +29,7 @@
     (labels ((local-apply-op (op)
                t)
              (not-appropriate-p (goal op)
-               t))
+               (not (member-equal goal (op-add-list op)))))
       (let* ((ops-to-consider
               (remove goal *ops* :test #'not-appropriate-p)))
              (some #'local-apply-op ops-to-consider)))))
