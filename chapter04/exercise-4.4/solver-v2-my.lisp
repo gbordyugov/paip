@@ -16,7 +16,7 @@
                (achieve from-state to-state goal-stack))))
     (let* ((end-state (reduce #'achieve-state goals :initial-value state))
            (all-goals-reached-p (subsetp goals end-state :test #'equal)))
-      (and end-state and all-goals-reached-p))))
+      (and end-state all-goals-reached-p))))
 
 (defun achieve (state goal goal-stack)
   "Achieve a single goal starting from state."
@@ -26,13 +26,13 @@
     ;; Is goal already satisfied?
     ((member-equal goal state) state)
     ;; Find all opearators that have goal on their add-list.
-    (labels ((local-apply-op (op)
-               (apply-op state goal op goal-stack))
-             (not-appropriate-p (goal op)
-               (not (member-equal goal (op-add-list op)))))
-      (let* ((ops-to-consider
-              (remove goal *ops* :test #'not-appropriate-p)))
-             (some #'local-apply-op ops-to-consider)))))
+    (t (labels ((local-apply-op (op)
+                  (apply-op state goal op goal-stack))
+                (not-appropriate-p (goal op)
+                  (not (member-equal goal (op-add-list op)))))
+         (let* ((ops-to-consider
+                 (remove goal *ops* :test #'not-appropriate-p)))
+           (some #'local-apply-op ops-to-consider))))))
 
 
 (defun member-equal (item list)
@@ -49,10 +49,12 @@
                (member-equal x (op-del-list op)))
              (update (state op)
                ;; add op's add-list and remove del-list goals from state
-               (append (remove-if #'is-in-del-list state2) (op-add-list op))))
+               (append (remove-if #'is-in-del-list new-state) (op-add-list op))))
       (when new-state
         (update new-state op)))))
 
 
 (defun gps (start-state end-state)
-  t)
+  (let* ((ini-state (cons '(start) start-state))
+         (end-state (achieve-all ini-state end-state nil)))
+    (end-state)))
