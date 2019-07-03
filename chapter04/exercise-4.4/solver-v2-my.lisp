@@ -16,7 +16,8 @@
                (achieve from-state to-state goal-stack))))
     (let* ((end-state (reduce #'achieve-state goals :initial-value state))
            (all-goals-reached-p (subsetp goals end-state :test #'equal)))
-      (and end-state all-goals-reached-p))))
+      (when (and end-state all-goals-reached-p)
+        end-state))))
 
 (defun achieve (state goal goal-stack)
   "Achieve a single goal starting from state."
@@ -45,16 +46,17 @@
    goal-stack."
   (let* ((extended-goal-stack (cons goal goal-stack))
          (new-state (achieve-all state (op-preconds op) extended-goal-stack)))
-    (labels ((is-in-del-list (x)
-               (member-equal x (op-del-list op)))
-             (update (state op)
-               ;; add op's add-list and remove del-list goals from state
-               (append (remove-if #'is-in-del-list new-state) (op-add-list op))))
-      (when new-state
+    (when new-state
+      (labels ((is-in-del-list (x)
+                 (member-equal x (op-del-list op)))
+               (update (state op)
+                 ;; add op's add-list and remove del-list goals from state
+                 (append (remove-if #'is-in-del-list new-state)
+                         (op-add-list op))))
         (update new-state op)))))
 
 
 (defun gps (start-state end-state)
   (let* ((ini-state (cons '(start) start-state))
          (end-state (achieve-all ini-state end-state nil)))
-    (end-state)))
+    end-state))
