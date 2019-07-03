@@ -57,10 +57,13 @@
 
 
 (defun gps (start-state end-state)
-  (labels ((clean-up (goals)
-             (remove-if #'(lambda (g)
-                            (not (consp g)))
+  (labels ((to-remove (x)
+             (not (or (equal x '(start))
+                      (and (consp x)
+                           (equal (first x) 'executing)))))
+           (clean-up (goals)
+             (remove-if #'to-remove
                         goals)))
-  (let* ((ini-state (cons '(start) start-state))
-         (end-state (achieve-all ini-state end-state nil)))
-    (clean-up end-state))))
+    (let* ((ini-state (cons '(start) start-state))
+           (end-state (achieve-all ini-state end-state nil)))
+      (clean-up end-state))))
