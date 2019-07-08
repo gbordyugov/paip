@@ -57,6 +57,11 @@
 
 
 (defun gps (start-state end-state)
+  "Do three things:
+   1) add '(start) to initial state,
+   2) run the actual solver,
+   3) strip final state of everying that is not either '(start) or
+      '(execute X) for some X."
   (labels ((to-remove-p (x)
              (not (or (equal x '(start))
                       (and (consp x)
