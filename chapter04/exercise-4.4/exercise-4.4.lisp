@@ -68,3 +68,25 @@
        '(son-at-school have-money)))
 
 (run-problematic)
+
+(defun run-problematic-solved ()
+  (load "ops.lisp")
+  (load "school-ops.lisp")
+  (load "debug.lisp")
+  (load "solver-v2-exercise-4.4.lisp")
+  (use (push (op 'taxi-son-to-school
+                 :preconds '(son-at-home have-money)
+                 :add-list '(son-at-school)
+                 :del-list '(son-at-home have-money))
+             *school-ops*))
+  (debug-norvig :gps)
+  ;;
+  ;; This one doesn't work because of the not looking after you don't
+  ;; leap problem. The actual solution would be to drive son to school
+  ;; ourselves, but the solver gets stuck by driving son to school with
+  ;; taxi and then trying to fulfill `have-money` goal.
+  ;;
+  (GPS '(son-at-home have-money car-works)
+       '(son-at-school have-money)))
+
+(run-problematic-solved)
