@@ -40,7 +40,7 @@
   (load "ops.lisp")
   (load "school-ops.lisp")
   (load "debug.lisp")
-  (load "solver-v2-my.lisp")
+  (load "solver-v2-exercise-4.4.lisp")
   (use *school-ops*)
   (GPS '(son-at-home car-needs-battery have-money have-phone-book)
        '(son-at-school)))
