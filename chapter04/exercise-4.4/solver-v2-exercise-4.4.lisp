@@ -13,13 +13,13 @@
    Check if the end state is a superset of goals."
   (labels ((achieve-state (from-state to-state)
              (when from-state
-               (achieve from-state to-state goal-stack))))
+               (achieve from-state to-state goal-stack '()))))
     (let* ((end-state (reduce #'achieve-state goals :initial-value state))
            (all-goals-reached-p (subsetp goals end-state :test #'equal)))
       (when (and end-state all-goals-reached-p)
         end-state))))
 
-(defun achieve (state goal goal-stack)
+(defun achieve (state goal goal-stack remaining-goals)
   "Achieve a single goal starting from state."
   (cond
     ;; Have we considered this goal before?
