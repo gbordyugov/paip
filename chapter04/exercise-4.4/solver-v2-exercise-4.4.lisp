@@ -20,7 +20,8 @@
         end-state))))
 
 (defun achieve (state goal goal-stack remaining-goals)
-  "Achieve a single goal starting from state."
+  "Achieve a single goal starting from state. Succeeds if the goal can
+   be achieved and remaining can be achieved by achieve-all."
   (cond
     ;; Have we considered this goal before?
     ((member-equal goal goal-stack) '())
