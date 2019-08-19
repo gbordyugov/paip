@@ -25,6 +25,8 @@
 ;;   This naturally leads to recursion.
 ;;
 
+(load "utils.lisp")
+
 ;;
 ;; Defvars are just like global variables (with dynamic scope).
 ;;
