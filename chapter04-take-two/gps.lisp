@@ -40,6 +40,8 @@
            (add-list nil)
            (del-list nil))
 
+(load "school-ops.lisp")
+
 (defun GPS (*state* goals *ops*)
   "General Problem Solver: achieve all goals using *ops*."
   (if (every #'achieve goals) 'solved))
@@ -58,7 +60,7 @@
 (defun apply-op (op)
   "Print a message and update *state* if op is applicable."
   (when (every #'achieve (op-preconds op))
-    (print (list 'executing (op-actionop)))
+    (print (list 'executing (op-action op)))
     ;; update the state
     (setf *state* (set-difference *state* (op-del-list op)))
     (setf *state* (union *state* (op-add-list op)))
