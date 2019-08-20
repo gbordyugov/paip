@@ -37,3 +37,12 @@
 ;; that achieving (have-money son-at-school) means "first achieve
 ;; have-money and then achieve son-at-school".
 ;;
+;; We can fix this bug by replacing the two appearances of
+;;   (every #'achieve x)
+;; by a call to a new function achieve-all.
+;;
+(load "gps-achieve-all.lisp")
+
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(have-money son-at-school)
+     *school-ops*)
