@@ -40,7 +40,7 @@
            (add-list nil)
            (del-list nil))
 
-(load "school-ops.lisp")
+(load "ops/school-ops.lisp")
 
 (defun GPS (*state* goals *ops*)
   "General Problem Solver: achieve all goals using *ops*."
