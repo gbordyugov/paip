@@ -62,3 +62,21 @@
 ;; It returns nil, but after having driven son to school (and long
 ;; after having spent the money!)
 ;;
+
+;;
+;; The Recursive Subgoal Problem.
+;;
+
+;;
+;; This code exhausts the stack because you understand why.
+;;
+(progn
+  (load "gps.lisp")
+  (setf *extended-school-ops*
+        (cons (make-op :action 'ask-phone-number
+                       :preconds '(in-communication-with-shop)
+                       :add-list '(know-phone-number))
+              *school-ops*))
+  (gps '(son-at-home car-needs-battery have-money)
+       '(son-at-school)
+       *extended-school-ops*))
