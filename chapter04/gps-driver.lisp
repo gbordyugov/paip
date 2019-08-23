@@ -41,11 +41,12 @@
 ;;   (every #'achieve x)
 ;; by a call to a new function achieve-all.
 ;;
-(load "gps-achieve-all.lisp")
+(progn
+  (load "gps-achieve-all.lisp")
 
-(gps '(son-at-home car-needs-battery have-money have-phone-book)
-     '(have-money son-at-school)
-     *school-ops*)
+  (gps '(son-at-home car-needs-battery have-money have-phone-book)
+       '(have-money son-at-school)
+       *school-ops*))
 
 ;;
 ;; The Leaping before You Look Problem
@@ -54,10 +55,11 @@
 ;;
 ;; Let us rotate the goals.
 ;;
-(load "gps-achieve-all.lisp")
-(gps '(son-at-home car-needs-battery have-money have-phone-book)
-     '(son-at-school have-money)
-     *school-ops*)
+(progn
+  (load "gps-achieve-all.lisp")
+  (gps '(son-at-home car-needs-battery have-money have-phone-book)
+       '(son-at-school have-money)
+       *school-ops*))
 ;;
 ;; It returns nil, but after having driven son to school (and long
 ;; after having spent the money!)
