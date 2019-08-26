@@ -15,3 +15,10 @@
   (setf *dbg-ids* (if (null ids)
                       nil
                       (set-difference *dbg-ids* ids))))
+
+(defun norvig-dbg-indent (id indent format-string &rest args)
+  "Print indented debugging info if (NORVIG-DEBUG ID) has been specified."
+  (when (member id *dbg-ids*)
+    (fresh-line *debug-io*)
+    (dotimes (i indent) (princ " " *debug-io*))
+    (apply #'format *debug-io* format-string args)))
