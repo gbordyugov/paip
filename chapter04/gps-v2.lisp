@@ -9,6 +9,12 @@
 
 (load "utils.lisp")
 
+;;
+;; The variable *ops* is a special variable. So binding it to local
+;; parameter results in all references to the special variable that
+;; occure anywhere in programme refere to the new binding of the
+;; special variable.
+;;
 (defun GPS (state goals &optional (*ops* *ops*))
   "General Problem Solver: from state, achieve goals using *ops*."
   ;; Note that we extend the initial condition by appending a '(START)
