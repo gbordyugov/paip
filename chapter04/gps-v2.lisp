@@ -18,3 +18,15 @@
   ;; represents a failure rather than an empty set of conditions. In
   ;; other words, a state can never become an empty list.
   (remove-if #'atom (achieve-all (cons '(start) state) goals nil)))
+
+(defun achieve-all (state goals goal-stack)
+  "Achieve each goal in succession, using the result of achieving the
+   previous one as a starting condition for achieving the next one,
+   and make sure they still hold at the end."
+  (let ((current-state state))
+    (if (and (every #'(lambda (g)
+                        (setf current-state
+                              (achieve current-state g goal-stack)))
+                    goals)
+             (subsetp goals current-state :test #'equal))
+        current-state)))
