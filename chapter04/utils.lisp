@@ -7,3 +7,6 @@
              :test-not (complement test-not) keyword-args)
       (apply #'remove item sequence
              :test (complement test) keyword-args)))
+
+(defun member-equal (item list)
+  (member item list :test '#equal))

@@ -30,3 +30,16 @@
                     goals)
              (subsetp goals current-state :test #'equal))
         current-state)))
+
+(load "debug.lisp")
+(load "utils.lisp")
+
+(defun achieve (state goal goal-stack)
+  "A goal is achieved if it already holds, or there is an appropriate
+   op for it that is applicable."
+  (norvig-dbg-indent :gps (length goal-stack) "Goal: ~a" goal)
+  (cond ((member-equal goal state) state)
+        ;; fail fast
+        ((member-equal goal goal-stack) nil)
+        (t (some #'(lambda (op) (apply-op state goal op goal-stack))
+                 (find-all goal *ops* :test #'appropriate-p)))))
