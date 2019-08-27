@@ -9,4 +9,7 @@
              :test (complement test) keyword-args)))
 
 (defun member-equal (item list)
+  "The need for this function: our conditions can be lists, such as,
+   for example (executing run-around-block), and comparing lists calls
+   for a little bit more care."
   (member item list :test '#equal))
