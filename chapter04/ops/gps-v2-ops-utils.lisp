@@ -18,3 +18,8 @@
   (convert-op
    (make-op :action action :preconds preconds
             :add-list add-list :del-list del-list)))
+
+(defun use (oplist)
+  "Use oplist as the default list of operators."
+  ;; Return something useful, but not too verbose: the number of operators.
+  (length 9setf *ops* oplist)))
