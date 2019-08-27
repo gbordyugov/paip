@@ -32,6 +32,8 @@
         current-state)))
 
 (load "debug.lisp")
+
+;; for find-all, member-equal, appropriate-p, etc.
 (load "utils.lisp")
 
 (defun achieve (state goal goal-stack)
@@ -43,3 +45,17 @@
         ((member-equal goal goal-stack) nil)
         (t (some #'(lambda (op) (apply-op state goal op goal-stack))
                  (find-all goal *ops* :test #'appropriate-p)))))
+
+(defun apply-op (state goal op goal-stack)
+  "Return a new, transformed state if op is applicable."
+  (norvig-dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
+  (let ((state2 (achieve-all state (op preconds)
+                             (cons goal goal-stack))))
+    (unless (null state2)
+      ;; Return an updated state
+      (norvig-dbg-indent :gps (length goal-stack)
+                         "Action: ~a" (op-action op))
+      (append (remove-if #'(lambda (x)
+                             (member-equal x (op-del-list op)))
+                         state2)
+              (op-add-list op)))))

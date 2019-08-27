@@ -13,3 +13,7 @@
    for example (executing run-around-block), and comparing lists calls
    for a little bit more care."
   (member item list :test '#equal))
+
+(defun appropriate-p (goal op)
+  "An op is appropriate to a goal if it is in its add-list."
+  (member-equal goal (op-add-list op)))
