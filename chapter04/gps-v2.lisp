@@ -55,7 +55,7 @@
 (defun apply-op (state goal op goal-stack)
   "Return a new, transformed state if op is applicable."
   (norvig-dbg-indent :gps (length goal-stack) "Consider: ~a" (op-action op))
-  (let ((state2 (achieve-all state (op preconds)
+  (let ((state2 (achieve-all state (op-preconds op)
                              (cons goal goal-stack))))
     (unless (null state2)
       ;; Return an updated state

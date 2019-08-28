@@ -22,4 +22,4 @@
 (defun use (oplist)
   "Use oplist as the default list of operators."
   ;; Return something useful, but not too verbose: the number of operators.
-  (length 9setf *ops* oplist)))
+  (length (setf *ops* oplist)))
