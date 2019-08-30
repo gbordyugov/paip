@@ -34,12 +34,7 @@
 
 (defvar *ops* nil "A list of available operators.")
 
-(defstruct op "An operation"
-           (action nil)
-           (preconds nil)
-           (add-list nil)
-           (del-list nil))
-
+(load "ops/op.lisp")
 (load "ops/school-ops.lisp")
 
 (defun GPS (*state* goals *ops*)
