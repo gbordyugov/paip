@@ -1,30 +1,7 @@
 ;;
-;; I feel that I haven't learned a lot during my first pass through
-;; Chapter 4 and decided to give it another go.
+;; This is an improvement over the original code of GPS v1 by
+;; introducing ACHIEVE-ALL function.
 ;;
-
-;;
-;; Specification:
-;;
-;; - The current state of the world/search is a set of conditions, for
-;;   example, (reach famous)
-;;
-;; - We need a list of allowable operators, each of them represented
-;;   by an action, a list of preconditions, and a list of effects. The
-;;   latter is going to be split into an add-list and a delete-list.
-;;
-;; - A complete problem is described by a starting state, a goal
-;;   state, and a set of known operators.
-;;
-;; - A single goal condition can be achieved in two ways. If it's
-;;   already in the current state, it is already achieved. Otherwise,
-;;   we have to find an operator that targets this goal, i.e. has the
-;;   goal on its add-list.
-;;
-;; - We can apply an operator if we can achieve all its preconditions.
-;;   This naturally leads to recursion.
-;;
-
 (load "utils.lisp")
 
 ;;
