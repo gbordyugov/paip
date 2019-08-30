@@ -1,11 +1,3 @@
-(defun executing-p (x)
-  "Is x of the form: (executing ...)?"
-  (starts-with x 'executing))
-
-(defun starts-with (list x)
-  "Is this a list whose first element ix x?"
-  (and (consp list) (eql (first list) x)))
-
 (defun convert-op (op)
   "Make op conform to the (EXECUTING op) convention."
   (unless (some #'executing-p (op-add-list op))

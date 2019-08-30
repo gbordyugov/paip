@@ -21,3 +21,17 @@
 (defun mappend (fn the-list)
   "Apply fn to each element of list and append the results."
   (apply #'append (mapcar fn the-list)))
+
+(defun action-p (x)
+  "Is ix something that is (START) or (EXECUTING ...)?"
+  (or (equal x '(start)) (executing-p x)))
+
+(setf (symbol-function 'find-all-if) #'remove-if-not)
+
+(defun executing-p (x)
+  "Is x of the form: (executing ...)?"
+  (starts-with x 'executing))
+
+(defun starts-with (list x)
+  "Is this a list whose first element ix x?"
+  (and (consp list) (eql (first list) x)))
