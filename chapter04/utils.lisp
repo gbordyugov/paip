@@ -17,3 +17,7 @@
 (defun appropriate-p (goal op)
   "An op is appropriate to a goal if it is in its add-list."
   (member-equal goal (op-add-list op)))
+
+(defun mappend (fn the-list)
+  "Apply fn to each element of list and append the results."
+  (apply #'append (mapcar fn the-list)))
