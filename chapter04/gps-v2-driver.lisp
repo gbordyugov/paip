@@ -29,3 +29,9 @@
 
 (gps '(son-at-home car-needs-battery have-money)
      '(son-at-school))
+
+;;
+;; Another trivial case
+;;
+
+(gps '(son-at-home) '(son-at-home))
