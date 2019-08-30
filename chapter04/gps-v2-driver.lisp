@@ -8,3 +8,24 @@
 (norvig-debug :gps)
 (gps '(son-at-home car-needs-battery have-money have-phone-book)
      '(son-at-school))
+
+(norvig-undebug)
+
+;;
+;; A trivial case.
+;;
+(gps '(son-at-home car-works)
+     '(son-at-school))
+
+
+;;
+;; Three cases that version 1 of GPS was not able to handle.
+;;
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(have-money son-at-school))
+
+(gps '(son-at-home car-needs-battery have-money have-phone-book)
+     '(son-at-school have-money))
+
+(gps '(son-at-home car-needs-battery have-money)
+     '(son-at-school))
