@@ -10,6 +10,12 @@
 
 (use *maze-ops*)
 
-;; (norvig-debug :gps)
+(norvig-undebug :gps)
 
 (gps '((at 1)) '((at 25)))
+
+(find-path 1 25)
+
+(find-path 1 1)
+
+(equal (find-path 1 25) (reverse (find-path 25 1)))

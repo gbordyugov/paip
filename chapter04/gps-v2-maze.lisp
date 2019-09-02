@@ -22,6 +22,18 @@
   (find-all-if #'action-p
                (achieve-all (cons '(start) state) goals nil)))
 
+(defun find-path (start end)
+  "Search a maze for a path from start to end."
+  (let ((results (GPS `((at ,start)) `((at ,end)))))
+    (unless (null results)
+      (cons start (mapcar #'destination
+                          (remove '(start) results
+                                  :test #'equal))))))
+
+(defun destination (action)
+  "Find the Y in (executing (move from X to Y))."
+  (fifth (second action)))
+
 (defun achieve-all (state goals goal-stack)
   "Achieve each goal in succession, using the result of achieving the
    previous one as a starting condition for achieving the next one,
