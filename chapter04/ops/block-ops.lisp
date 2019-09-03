@@ -24,6 +24,9 @@
       :del-list (move-ons a c b)))
 
 (defun move-ons (a b c)
+  "Return ADD-LIST for moving A from B to C. Additionally takes care
+   (adds / deletes) SPACE on B. Also used to generate DEL-LIST when
+   moving A from C to B."
   (if (eq b 'table)
       `((,a on ,c))
       `((,a on ,c) (space on ,b))))
