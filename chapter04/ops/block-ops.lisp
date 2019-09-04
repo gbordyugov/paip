@@ -11,7 +11,7 @@
         (unless (equal a b)
           (dolist (c blocks)
             (unless (or (equal c a) (equal c b))
-              (push (mov-op a b c) ops)))
+              (push (move-op a b c) ops)))
           (push (move-op a 'table b) ops)
           (push (move-op a b 'table) ops))))
     ops))
