@@ -31,3 +31,13 @@
   ;; state.
   (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
        '((c on b) (b on a))))
+
+(progn
+  (load "gps-v2-blocks.lisp")
+  (load "ops/block-ops.lisp")
+  (use (make-block-ops '(a b c)))
+  ;; Whereas a permutation of the goal state make the solver get
+  ;; stuck. The difference is the order of the single goals in the end
+  ;; state.
+  (gps '((a on b) (b on c) (c on table) (space on a) (space on table))
+       '((c on b) (b on a))))
