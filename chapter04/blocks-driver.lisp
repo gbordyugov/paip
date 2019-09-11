@@ -70,8 +70,7 @@
   (load "gps-v2-blocks-sorted-operators.lisp")
   (load "ops/block-ops.lisp")
   (use (make-block-ops '(a b c)))
-  ;; GPS solves this problme in four steps, whereas just two stpes
-  ;; are enough.
+  ;; with sorted operators, it finds the optimal solution
   (gps '((c on a) (a on table) (b on table) (space on c) (space on b)
          (space on table))
        '((c on table) (a on b))))
