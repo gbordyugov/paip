@@ -70,7 +70,27 @@
   (load "gps-v2-blocks-sorted-operators.lisp")
   (load "ops/block-ops.lisp")
   (use (make-block-ops '(a b c)))
-  ;; with sorted operators, it finds the optimal solution
+  ;; With sorted operators, it finds the optimal solution.
   (gps '((c on a) (a on table) (b on table) (space on c) (space on b)
          (space on table))
        '((c on table) (a on b))))
+
+;;
+;; The Sussman Anomaly
+;;
+
+(progn
+  (load "gps-v2-blocks-sorted-operators.lisp")
+  (load "ops/block-ops.lisp")
+  (use (make-block-ops '(a b c)))
+  (setf start '((c on a) (a on table) (b on table) (space on c)
+                (space on b) (space on table)))
+  (gps start '((a on b) (b on c))))
+
+(progn
+  (load "gps-v2-blocks-sorted-operators.lisp")
+  (load "ops/block-ops.lisp")
+  (use (make-block-ops '(a b c)))
+  (setf start '((c on a) (a on table) (b on table) (space on c)
+                (space on b) (space on table)))
+  (gps start '((b on c) (a on b))))
