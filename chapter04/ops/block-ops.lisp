@@ -2,8 +2,6 @@
 ;; The code below assumes the existence of two special blocks - TABLE
 ;; and SPACE.
 ;;
-(load "ops/gps-v2-ops-utils.lisp")
-
 (defun make-block-ops (blocks)
   "Consider all possible combinations of three blocks A, B, and C and
    make operators for moving A from B to C."

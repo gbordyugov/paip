@@ -1,6 +1,5 @@
 (load "gps-v2.lisp")
 (load "ops/school-ops.lisp")
-(load "ops/gps-v2-ops-utils.lisp")
 
 (mapc #'convert-op *school-ops*)
 (use *school-ops*)

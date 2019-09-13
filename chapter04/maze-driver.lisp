@@ -4,7 +4,6 @@
 ;;
 (load "gps-v2-maze.lisp")
 (load "ops/maze-ops.lisp")
-(load "ops/gps-v2-ops-utils.lisp")
 
 (mapc #'convert-op *maze-ops*)
 
