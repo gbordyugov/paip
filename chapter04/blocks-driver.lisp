@@ -60,7 +60,7 @@
   (load "gps-v2-blocks.lisp")
   (load "ops/block-ops.lisp")
   (use (make-block-ops '(a b c)))
-  ;; GPS solves this problme in four steps, whereas just two stpes
+  ;; GPS solves this problme in four steps, whereas just two steps
   ;; are enough.
   (gps '((c on a) (a on table) (b on table) (space on c) (space on b)
          (space on table))
