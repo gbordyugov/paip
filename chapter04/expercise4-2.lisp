@@ -6,10 +6,20 @@
   "Apply fn to each element of list and append the results."
   (apply #'append (mapcar fn the-list)))
 
-(defun insert-at-each-position (x items)
-  ;; Return list of lists consisting of inserting x into items at all
+(defun insert-at-each-position (el items)
+  ;; Return list of lists consisting of inserting el into items at all
   ;; possible positions.
-  '())
+  (labels ((suffices (lst)
+             '())
+           (prefices (lst)
+             '()))
+    (let ((prefs (prefices items))
+          (suffs (suffices items))
+          (elist (list el)))
+      (mapcar #'(lambda (p s) (append p elist s))
+              prefs suffs))))
+
+(insert-at-each-position 5 '(1 2 3))
 
 (defun permutations (items)
   ;; Return all permutations of items.
