@@ -6,18 +6,22 @@
   "Apply fn to each element of list and append the results."
   (apply #'append (mapcar fn the-list)))
 
+(defun suffices (lst)
+  "Return list of suffices of lst."
+  '())
+
+(defun prefices (lst)
+  "Return list of prefices of lst."
+  '())
+
 (defun insert-at-each-position (el items)
   ;; Return list of lists consisting of inserting el into items at all
   ;; possible positions.
-  (labels ((suffices (lst)
-             '())
-           (prefices (lst)
-             '()))
-    (let ((prefs (prefices items))
-          (suffs (suffices items))
-          (elist (list el)))
-      (mapcar #'(lambda (p s) (append p elist s))
-              prefs suffs))))
+  (let ((prefs (prefices items))
+        (suffs (suffices items))
+        (elist (list el)))
+    (mapcar #'(lambda (p s) (append p elist s))
+            prefs suffs)))
 
 (insert-at-each-position 5 '(1 2 3))
 
