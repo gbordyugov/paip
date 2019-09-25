@@ -8,11 +8,15 @@
 
 (defun suffices (lst)
   "Return list of suffices of lst."
-  '())
+  (reduce #'(lambda (x acc)
+              (cons (cons x (car acc)) acc))
+          lst :from-end t :initial-value '(())))
 
 (defun prefices (lst)
   "Return list of prefices of lst."
-  '())
+  (reverse (reduce #'(lambda (acc x)
+                       (cons (cons x (car acc)) acc))
+                   lst :initial-value '(()))))
 
 (defun insert-at-each-position (el items)
   ;; Return list of lists consisting of inserting el into items at all
@@ -20,17 +24,17 @@
   (let ((prefs (prefices items))
         (suffs (suffices items))
         (elist (list el)))
-    (mapcar #'(lambda (p s) (append p elist s))
-            prefs suffs)))
-
-(insert-at-each-position 5 '(1 2 3))
+    (mapcar #'(lambda (p s) (append p elist s)) prefs suffs)))
 
 (defun permutations (items)
   ;; Return all permutations of items.
   (if (< (length items) 2)
-      items
-      ;; I don't really know how to best proceed here.
-      (let ((rest-perms (permutations (cdr items))))
-        (mapcar #'(lambda (x) (x) items)))))
+      (list items)
+      (mappend #'(lambda (permutation)
+                   (insert-at-each-position (car items) permutation))
+               (permutations (cdr items)))))
+
 
 (permutations '(1 2))
+(permutations '(1 2 3))
+(permutations '(1 2 3 4))
