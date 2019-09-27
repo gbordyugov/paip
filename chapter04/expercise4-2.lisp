@@ -38,3 +38,15 @@
 (permutations '(1 2))
 (permutations '(1 2 3))
 (permutations '(1 2 3 4))
+
+(defun permutations-norvig (bag)
+  "Return a list of all the permutations of the input."
+  (if (null bag)
+      '(())
+      (mapcan #'(lambda (e)
+                  (mapcar #'(lambda (p) (cons e p))
+                          (permutations-norvig
+                           (remove e bag :count 1 :test #' eq))))
+              bag)))
+
+(permutations-norvig '(1 2 3 4))
