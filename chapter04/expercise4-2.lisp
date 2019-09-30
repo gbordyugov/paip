@@ -44,9 +44,11 @@
   (if (null bag)
       '(())
       (mapcan #'(lambda (e)
-                  (mapcar #'(lambda (p) (cons e p))
-                          (permutations-norvig
-                           (remove e bag :count 1 :test #' eq))))
+                  (let ((smaller-bag (remove e bag :count 1 :test #' eq)))
+                    (mapcar #'(lambda (p) (cons e p))
+                            (permutations-norvig smaller-bag))))
               bag)))
 
+(permutations-norvig '(1 2))
+(permutations-norvig '(1 2 3))
 (permutations-norvig '(1 2 3 4))
