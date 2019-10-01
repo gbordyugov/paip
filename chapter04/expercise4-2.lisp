@@ -53,6 +53,17 @@
                             (permutations-norvig smaller-bag))))
               bag)))
 
+(mapcan #'(lambda (e)
+           (mapcar #'(lambda (p) (cons e p))
+                    '(())))
+        '(1))
+
+(mapcar #'(lambda (e)
+           (mapcar #'(lambda (p) (cons e p))
+                    '(())))
+        '(1))
+
+(permutations-norvig '(1))
 (permutations-norvig '(1 2))
 (permutations-norvig '(1 2 3))
 (permutations-norvig '(1 2 3 4))
