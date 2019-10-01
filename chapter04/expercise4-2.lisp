@@ -43,6 +43,10 @@
   "Return a list of all the permutations of the input."
   (if (null bag)
       '(())
+      ;; In words:
+      ;; For each element e of bag, remove this element from bag.
+      ;; Generate all permutatations of the rest and cons e onto each
+      ;; of those permutations.
       (mapcan #'(lambda (e)
                   (let ((smaller-bag (remove e bag :count 1 :test #' eq)))
                     (mapcar #'(lambda (p) (cons e p))
