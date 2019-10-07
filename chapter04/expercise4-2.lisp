@@ -53,11 +53,17 @@
                             (permutations-norvig smaller-bag))))
               bag)))
 
+;;
+;; Examples of unrolled body of PERMUTATIONS-NORVIG for the trivial
+;; case. This is the correct one.
 (mapcan #'(lambda (e)
            (mapcar #'(lambda (p) (cons e p))
                     '(())))
         '(1))
 
+;;
+;; The one with MAPCAR adds another level of structure.
+;;
 (mapcar #'(lambda (e)
            (mapcar #'(lambda (p) (cons e p))
                     '(())))
