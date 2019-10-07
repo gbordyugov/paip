@@ -54,8 +54,14 @@
               bag)))
 
 ;;
+;; I do not understand the role of MAPCAN here and am trying to figure
+;; it out below.
+;;
+
+;;
 ;; Examples of unrolled body of PERMUTATIONS-NORVIG for the trivial
-;; case. This is the correct one.
+;; case. This is the correct one, it uses MAPCAN.
+;;
 (mapcan #'(lambda (e)
            (mapcar #'(lambda (p) (cons e p))
                     '(())))
