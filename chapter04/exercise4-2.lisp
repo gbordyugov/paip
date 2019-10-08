@@ -82,3 +82,26 @@
 (permutations-norvig '(1 2))
 (permutations-norvig '(1 2 3))
 (permutations-norvig '(1 2 3 4))
+
+;;
+;; That's an incorrect implementation using MAPCAR in place of MAPCAN
+;; above.
+;;
+(defun permutations-norvig-mapcar (bag)
+  "Return a list of all the permutations of the input."
+  (if (null bag)
+      '(())
+      ;; In words:
+      ;; For each element e of bag, remove this element from bag.
+      ;; Generate all permutatations of the rest and cons e onto each
+      ;; of those permutations.
+      (mapcar #'(lambda (e)
+                  (let ((smaller-bag (remove e bag :count 1 :test #' eq)))
+                    (mapcar #'(lambda (p) (cons e p))
+                            (permutations-norvig-mapcar smaller-bag))))
+              bag)))
+
+(permutations-norvig-mapcar '(1))
+(permutations-norvig-mapcar '(1 2))
+(permutations-norvig-mapcar '(1 2 3))
+(permutations-norvig-mapcar '(1 2 3 4))
