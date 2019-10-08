@@ -57,6 +57,9 @@
 ;; I do not understand the role of MAPCAN here and am trying to figure
 ;; it out below.
 ;;
+;; What I'm starting to understand now:
+;; - '(()) is a list of length one, with one element being an empty list '()
+;;
 
 ;;
 ;; Examples of unrolled body of PERMUTATIONS-NORVIG for the trivial
