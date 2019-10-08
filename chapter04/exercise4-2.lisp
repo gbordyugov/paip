@@ -70,14 +70,6 @@
                     '(())))
         '(1))
 
-;;
-;; The one with MAPCAR adds another level of structure.
-;;
-(mapcar #'(lambda (e)
-           (mapcar #'(lambda (p) (cons e p))
-                    '(())))
-        '(1))
-
 (permutations-norvig '(1))
 (permutations-norvig '(1 2))
 (permutations-norvig '(1 2 3))
@@ -100,6 +92,14 @@
                     (mapcar #'(lambda (p) (cons e p))
                             (permutations-norvig-mapcar smaller-bag))))
               bag)))
+
+;;
+;; The one with MAPCAR adds another level of structure.
+;;
+(mapcar #'(lambda (e)
+           (mapcar #'(lambda (p) (cons e p))
+                    '(())))
+        '(1))
 
 (permutations-norvig-mapcar '(1))
 (permutations-norvig-mapcar '(1 2))
