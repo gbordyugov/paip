@@ -105,3 +105,9 @@
 (permutations-norvig-mapcar '(1 2))
 (permutations-norvig-mapcar '(1 2 3))
 (permutations-norvig-mapcar '(1 2 3 4))
+
+;;
+;; Toiling furhter...
+;;
+(let ((perms '((1 2) (2 1))))
+  (mapcar #'(lambda (p) (cons 0 p)) perms))
