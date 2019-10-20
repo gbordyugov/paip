@@ -125,7 +125,9 @@
       (mapcan #'(lambda (element)
                   (let* ((rest-bag (remove element bag))
                          (rest-perms (my-norvig-permutations rest-bag)))
-                    (mapcar #'(lambda (perm) (cons element perm)) rest-perms)))
+                    (mapcar #'(lambda (perm)
+                                (cons element perm))
+                            rest-perms)))
               bag)))
 
 (my-norvig-permutations '(1))
