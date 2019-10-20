@@ -111,3 +111,24 @@
 ;;
 (let ((perms '((1 2) (2 1))))
   (mapcar #'(lambda (p) (cons 0 p)) perms))
+
+;;
+;; I have to implement it from scratch in order to grok it.
+;;
+(defun my-norvig-permutations (bag)
+  "My take on Norvig's logic of calculating the permutations."
+  (if (null bag)
+      '(())
+      ;; For each item in bag, remove it from bag, compute all
+      ;; permutations of the rest and prepend the item to all the
+      ;; permutations.
+      (mapcan #'(lambda (element)
+                  (let* ((rest-bag (remove element bag))
+                         (rest-perms (my-norvig-permutations rest-bag)))
+                    (mapcar #'(lambda (perm) (cons element perm)) rest-perms)))
+              bag)))
+
+(my-norvig-permutations '(1))
+(my-norvig-permutations '(1 2))
+(my-norvig-permutations '(1 2 3))
+(my-norvig-permutations '(1 2 3 4))
