@@ -88,7 +88,7 @@
       ;; Generate all permutatations of the rest and cons e onto each
       ;; of those permutations.
       (mapcar #'(lambda (e)
-                  (let ((smaller-bag (remove e bag :count 1 :test #' eq)))
+                  (let ((smaller-bag (remove e bag :count 1 :test #'eq)))
                     (mapcar #'(lambda (p) (cons e p))
                             (permutations-norvig-mapcar smaller-bag))))
               bag)))
@@ -123,7 +123,7 @@
       ;; permutations of the rest and prepend the item to all the
       ;; permutations.
       (labels ((f (element)
-                 (let* ((rest-bag (remove element bag))
+                 (let* ((rest-bag (remove element bag :count 1 :test #'eq))
                         (rest-perms (my-norvig-permutations rest-bag)))
                    (mapcar #'(lambda (perm) (cons element perm))
                            rest-perms))))
@@ -134,5 +134,7 @@
 (my-norvig-permutations '(1 2 3))
 (my-norvig-permutations '(1 2 3 4))
 
-
+;;
+;; MAPCAN is a flatmap/bing!
+;;
 (mapcan (lambda (x) (list (+ x 10) 'x)) '(1 2))
