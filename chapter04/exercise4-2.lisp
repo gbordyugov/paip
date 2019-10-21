@@ -122,15 +122,17 @@
       ;; For each item in bag, remove it from bag, compute all
       ;; permutations of the rest and prepend the item to all the
       ;; permutations.
-      (mapcan #'(lambda (element)
-                  (let* ((rest-bag (remove element bag))
-                         (rest-perms (my-norvig-permutations rest-bag)))
-                    (mapcar #'(lambda (perm)
-                                (cons element perm))
-                            rest-perms)))
-              bag)))
+      (labels ((f (element)
+                 (let* ((rest-bag (remove element bag))
+                        (rest-perms (my-norvig-permutations rest-bag)))
+                   (mapcar #'(lambda (perm) (cons element perm))
+                           rest-perms))))
+        (mapcan #'f bag))))
 
 (my-norvig-permutations '(1))
 (my-norvig-permutations '(1 2))
 (my-norvig-permutations '(1 2 3))
 (my-norvig-permutations '(1 2 3 4))
+
+
+(mapcan (lambda (x) (list (+ x 10) 'x)) '(1 2))
