@@ -135,6 +135,6 @@
 (my-norvig-permutations '(1 2 3 4))
 
 ;;
-;; MAPCAN is a flatmap/bing!
+;; MAPCAN is a flatmap/bind!
 ;;
 (mapcan (lambda (x) (list (+ x 10) 'x)) '(1 2))
