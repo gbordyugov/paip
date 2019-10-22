@@ -12,5 +12,5 @@
        :del-list '(have-ice-cream))
    (op 'eat-cake
        :preconds '(have-cake)
-       :add-list '()
+       :add-list '(have-ice-cream)
        :del-list '(have-cake))))
