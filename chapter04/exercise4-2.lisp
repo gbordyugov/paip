@@ -155,3 +155,21 @@
 (permut 1)
 (permut 1 2)
 (permut 1 2 3)
+
+;;
+;; And another iteration for the sake of practicing Common Lisp.
+;;
+(defun permut2 (&rest bag)
+  (if (null bag)
+      '(())
+      (let ((partial-perms
+             (mapcar #'(lambda (item)
+                         (mapcar #'(lambda (perm)
+                                     (cons item perm))
+                                 (apply #'permut2 (remove item bag))))
+                     bag)))
+        (apply #'append partial-perms))))
+
+(permut2 1)
+(permut2 1 2)
+(permut2 1 2 3)
