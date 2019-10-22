@@ -11,10 +11,10 @@ def permutations(bag):
             return [[item] + p for p in rest_perms]
         return mapcan(f, bag)
 
-def permutations_1(bag):
-    bag = list(bag)
+def permutations_1(*bag):
     if len(bag) == 0:
-        return [[]]
+        return [tuple()]
     else:
         return [x for item in bag
-                  for x in [[item] + p for p in permutations_1(e for e in bag if e != item)]]
+                  for x in [tuple([item] + list(p))
+                            for p in permutations_1(*[e for e in bag if e != item])]]
