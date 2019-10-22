@@ -1,3 +1,5 @@
+(load "gps-v2-maze.lisp")
+(load "utils.lisp")
 (load "ops/op.lisp")
 
 (defparameter *ex-4-3-ops*
@@ -14,3 +16,9 @@
        :preconds '(have-cake)
        :add-list '(have-ice-cream)
        :del-list '(have-cake))))
+
+(mapc #'convert-op *ex-4-3-ops*)
+
+(gps '(have-money)
+     '(have-cake)
+     *ex-4-3-ops*)
