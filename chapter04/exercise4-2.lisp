@@ -138,3 +138,20 @@
 ;; MAPCAN is a flatmap/bind!
 ;;
 (mapcan (lambda (x) (list (+ x 10) 'x)) '(1 2))
+
+;;
+;; Just one more iteration to make sure I've understood the logic.
+;;
+(defun permut (&rest bag)
+  (if (null bag)
+      '(())
+      ;; For each element of the bag combine it with all permutations
+      ;; of the rest of the bag. Combine results.
+      (mapcan #'(lambda (item)
+                  (mapcar #'(lambda (perm) (cons item perm))
+                          (apply #'permut (remove item bag))))
+              bag)))
+
+(permut 1)
+(permut 1 2)
+(permut 1 2 3)
