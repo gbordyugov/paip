@@ -11,15 +11,15 @@
          :del-list '(have-money))
      (op 'eat-ice-cream
          :preconds '(have-ice-cream)
-         :add-list '()
+         :add-list '(ice-cream-eaten dessert-eaten)
          :del-list '(have-ice-cream))
      (op 'eat-cake
          :preconds '(have-cake)
-         :add-list '(have-ice-cream)
+         :add-list '(cake-eaten have-ice-cream dessert-eaten)
          :del-list '(have-cake))))
 
   (mapc #'convert-op *ex-4-3-ops*)
 
   (gps '(have-money)
-       '(have-cake)
+       '(dessert-eaten)
        *ex-4-3-ops*))
