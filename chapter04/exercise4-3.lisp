@@ -17,9 +17,17 @@
          :preconds '(have-cake)
          :add-list '(cake-eaten have-ice-cream dessert-eaten)
          :del-list '(have-cake))))
-
   (mapc #'convert-op *ex-4-3-ops*)
 
+  ;;
+  ;; The (reduntant) solution which found by GPS v2 is:
+  ;;
+  ;; ((START) (EXECUTING BUY-CAKE) (EXECUTING EAT-CAKE)
+  ;;  (EXECUTING EAT-ICE-CREAM))
+  ;;
+  ;; The reason for that being that eating ice cream appears first on
+  ;; the operator list and GPS tries to satisfy it first.
+  ;;
   (gps '(have-money)
        '(dessert-eaten)
        *ex-4-3-ops*))
