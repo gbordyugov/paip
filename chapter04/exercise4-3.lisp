@@ -29,8 +29,10 @@
     ;; ((START) (EXECUTING BUY-CAKE) (EXECUTING EAT-CAKE)
     ;;  (EXECUTING EAT-ICE-CREAM))
     ;;
-    ;; The reason for that being that eating ice cream appears first on
-    ;; the operator list and GPS tries to satisfy it first.
+    ;; The reason for that being that eating ice cream appears first
+    ;; on the operator list and GPS tries to satisfy it first. The
+    ;; only option to obtain an ice cream is to eat a cake. In order
+    ;; to eat a cake, we need to buy it.
     ;;
     (gps '(have-money)
          '(dessert-eaten)
