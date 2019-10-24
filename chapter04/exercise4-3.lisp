@@ -34,6 +34,21 @@
     ;; only option to obtain an ice cream is to eat a cake. In order
     ;; to eat a cake, we need to buy it.
     ;;
-    (gps '(have-money)
-         '(dessert-eaten)
-         *ex-4-3-ops*)))
+    (norvig-debug :gps)
+
+    (gps '(have-money) '(dessert-eaten) *ex-4-3-ops*)
+
+    ;;
+    ;; This produces:
+    ;;
+    ;; Goal: DESSERT-EATEN
+    ;; Consider: EAT-ICE-CREAM
+    ;;  Goal: HAVE-ICE-CREAM
+    ;;  Consider: EAT-CAKE
+    ;;   Goal: HAVE-CAKE
+    ;;   Consider: BUY-CAKE
+    ;;    Goal: HAVE-MONEY
+    ;;   Action: BUY-CAKE
+    ;;  Action: EAT-CAKE
+    ;; Action: EAT-ICE-CREAM
+    ))
