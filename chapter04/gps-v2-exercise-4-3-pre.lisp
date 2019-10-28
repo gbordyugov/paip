@@ -26,13 +26,13 @@
   "Achieve each goal in succession, using the result of achieving the
    previous one as a starting condition for achieving the next one,
    and make sure they still hold at the end."
-  (let ((current-state state))
-    (if (and (every #'(lambda (g)
-                        (setf current-state
-                              (achieve current-state g goal-stack)))
-                    goals)
-             (subsetp goals current-state :test #'equal))
-        current-state)))
+  (let ((end-state (reduce #'(lambda (acc g)
+                               (achieve acc g goal-stack))
+                           goals
+                           :initial-value state)))
+    (when (and end-state
+               (subsetp goals end-state :test #'equal))
+      end-state)))
 
 (load "debug.lisp")
 
