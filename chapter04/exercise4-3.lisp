@@ -35,7 +35,9 @@
     ;; to eat a cake, we need to buy it.
     ;;
     ;; Now the question is how to recognize that eating cake satisfies
-    ;; the ultimate goal, i.e. DESSERT-EATEN?
+    ;; the ultimate goal, i.e. DESSERT-EATEN? One idea is to check
+    ;; whether we have a solution immediately after applying an
+    ;; operator.
     ;;
     (norvig-debug :gps)
 
