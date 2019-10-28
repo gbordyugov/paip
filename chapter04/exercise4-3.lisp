@@ -1,8 +1,8 @@
 (let ((use-old-gps nil))
   (progn
     (if use-old-gps
-        (load "gps-v2-maze.lisp")
-        (load "gps-v2-exercise-4-3.lisp"))
+        (load "gps-v2-exercise-4-3-pre.lisp")
+        (load "gps-v2-exercise-4-3-pre.lisp"))
 
     (load "utils.lisp")
     (load "ops/op.lisp")
@@ -37,7 +37,7 @@
     ;; Now the question is how to recognize that eating cake satisfies
     ;; the ultimate goal, i.e. DESSERT-EATEN? One idea is to check
     ;; whether we have a solution immediately after applying an
-    ;; operator.
+    ;;p operator.
     ;;
     (norvig-debug :gps)
 
