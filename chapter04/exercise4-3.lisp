@@ -34,6 +34,9 @@
     ;; only option to obtain an ice cream is to eat a cake. In order
     ;; to eat a cake, we need to buy it.
     ;;
+    ;; Now the question is how to recognize that eating cake satisfies
+    ;; the ultimate goal, i.e. DESSERT-EATEN?
+    ;;
     (norvig-debug :gps)
 
     (gps '(have-money) '(dessert-eaten) *ex-4-3-ops*)
