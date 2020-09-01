@@ -132,4 +132,45 @@
 
 (defun extend-bindings (var val bindings)
   "Add a (var . value) pair to a binding list."
-  (cons (cons var val) bindings))
+  (cons (cons var val)
+        ;; Once we add a "real" binding,
+        ;; we can get rid of the dummy no-bindings.
+        (if (eq bindings no-bindings)
+            nil
+            bindings)))
+
+(defun pat-match (pattern input &optional (bindings no-bindings))
+  "Match pattern against input in the context of the bindings."
+  (cond
+    ((eq bindings fail) fail)
+    ((variable-p pattern)
+     (match-variable pattern input bindings))
+    ((eql pattern input) bindings)
+    ((and (consp pattern) (consp input))
+     (pat-match (rest pattern) (rest input)
+                (pat-match (first pattern) (first input) bindings)))
+    (t fail)))
+
+(defun match-variable (var input bindings)
+  "Does var match input? Usees (or updates and returns bindings."
+  (let ((binding (get-binding var bindings)))
+    (cond
+      ((not binding) (extend-bindings var input bindings))
+      ((equal input (binding-val binding)) bindings)
+      (t fail))))
+
+(pat-match '(i need a ?X) '(i need a vacaction))
+
+(sublis (pat-match '(i need a ?X) '(i need a vacation))
+        '(what would it mean to you if you got a ?X ?))
+
+;; no match here
+(pat-match '(i need a ?X) '(i really nead a vacation))
+
+(pat-match '(this is easy) '(this is easy))
+
+(pat-match '(?X is ?X) '((2 + 2) is 4))
+
+(pat-match '(?X is ?X) '((2 + 2) is (2 + 2)))
+
+(pat-match '(?P need . ?X) '(i need a long vacation))
