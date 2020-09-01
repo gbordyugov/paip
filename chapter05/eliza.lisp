@@ -65,7 +65,7 @@
 (sublis '((?X . vacation))
         '(what would it mean to you if you got a ?X ?))
 
-(defun pat-match (pattern input)
+(defun pat-match-first-attempt (pattern input)
   "Does pattern match input? WARNING: buggy version."
   (if (variable-p pattern)
       (list (cons pattern input))
@@ -77,24 +77,35 @@
 ;;
 ;; The above implementation of pat-match has the following problems:
 ;;
-;; 1) (eql pattern input) may return T, which is not a list, so a
-;;    consequitive append will complain.
+;; 1) The check (eql pattern input) may return T, which is not a list,
+;;    so a consequitive append will complain.
 ;;
-;; 2) the same tist might return NIL, which would indicate failure,
+;; 2) The same tist might return NIL, which would indicate failure,
 ;;    but it will just be treated as a list, and will be appended to
 ;;    the rest of answer.
 ;;
-;; 3) we cannot distinguish between the case where the match fails -
+;; 3) We cannot distinguish between the case where the match fails -
 ;;    and returns NIL -- versus the case where everything matches, but
 ;;    there are no variable, so it returns the null a-list (this is
 ;;    the semipredicate problem already discussed in Chapter 4).
 ;;
-;; 4) we want the bindings of variables to agree -- if ?X is used
+;; 4) We want the bindings of variables to agree -- if ?X is used
 ;;    twice in the patter, we don't want it to match two different
 ;;    values in the input.
 ;;
-;; 5) it is inefficient for pat-match to check both the first and the
+;; 5) It is inefficient for pat-match to check both the first and the
 ;;    rest of lists, even when the corresponding first parts fail to
 ;;    match.
 ;;
 ;; A total of five bugs in a seven-line function.
+;;
+;; We can resolve thses problems by agreeing on two major conventions.
+;;
+;; 1) We're making pat-match a true predicate, so we will agree that
+;;    it returns NIL only to indicate failure.
+;;
+;; 2) If we are going to be consistent about the values of variables,
+;;    then the first will have to know what the rest is doing. We can
+;;    accomplish this by passing the binding list as a third argument
+;;    to pat-match. We make it an optional argument, because we want
+;;    to be able to say simply (pat-match a b).
