@@ -109,3 +109,27 @@
 ;;    accomplish this by passing the binding list as a third argument
 ;;    to pat-match. We make it an optional argument, because we want
 ;;    to be able to say simply (pat-match a b).
+
+(defconstant fail nil "Indicates pat-match failure")
+
+(defconstant no-bindings '((t . t))
+  "Indicates pat-match success, with no variables.")
+
+;;
+;; A slim layer of additional abstractions.
+;;
+
+(defun get-binding (var bindings)
+  "Find a (variable . value) pair in a binding list."
+  (assoc var bindings))
+
+(defun binding-val (binding)
+  (cdr binding))
+
+(defun lookup (var bindings)
+  "Get the value part (for var) from a binding list."
+  (binding-val (get-binding var bindings)))
+
+(defun extend-bindings (var val bindings)
+  "Add a (var . value) pair to a binding list."
+  (cons (cons var val) bindings))
