@@ -174,3 +174,12 @@
 (pat-match '(?X is ?X) '((2 + 2) is (2 + 2)))
 
 (pat-match '(?P need . ?X) '(i need a long vacation))
+
+;;
+;; 5.3 Segment Pattern Matching
+;;
+
+;;
+;; Consider pattern (?p need .?x): the variable ?x would match the
+;; rest of the input list, regardless of its length.
+;;
